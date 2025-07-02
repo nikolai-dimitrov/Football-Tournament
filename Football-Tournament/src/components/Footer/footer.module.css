@@ -1,0 +1,14 @@
+.footerContainer {
+    display: flex;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 16px 10px;
+    gap: 10px;
+    justify-content: space-between;
+    color: #fff;
+    
+}
+
+.footerContainer a {
+    color: #fff;
+}
