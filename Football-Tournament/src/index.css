@@ -45,12 +45,20 @@ select {
 	font: inherit;
 }
 
+#root {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
+	background-color: #010a0f;
+
+}
+
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 100%;
 	color: #4c4c4c;
 	background: #eee;
-	margin: 0 auto;
 }
 
 header {
@@ -59,6 +67,9 @@ header {
 }
 
 main {
-	max-width: 1600px;
-	margin: 0 auto;
+	/* background-color: #010a0f; */
+}
+
+footer {
+	background-color: #001e28;
 }
