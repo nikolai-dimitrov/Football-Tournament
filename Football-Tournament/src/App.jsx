@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
 import { Navigation } from './components/Navigation/Navigation'
 import { Home } from './components/Home/Home'
+import { Footer } from './components/Footer/Footer'
 
 
 function App() {
@@ -20,8 +21,10 @@ function App() {
       <header>
         <Navigation />
       </header>
-      <div>
-      </div>
+      <main></main>
+    <footer>
+      <Footer/>
+    </footer>
     </>
   )
 }
