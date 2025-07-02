@@ -1,0 +1,31 @@
+.navContainer {
+    display: flex;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    gap: 3px;
+    font-size: 24px;
+}
+
+.logo h3:nth-child(1) {
+    color: #ff0046;
+}
+
+.logo h3:nth-child(2) {
+    color: #eeeeee;
+}
+
+.nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a {
+    color: #eeeeee;
+    font-weight: bold;
+}

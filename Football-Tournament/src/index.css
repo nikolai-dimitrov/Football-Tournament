@@ -50,6 +50,15 @@ body {
 	font-size: 100%;
 	color: #4c4c4c;
 	background: #eee;
+	margin: 0 auto;
+}
+
+header {
+    background-color: #001e28;
+    padding: 5px 10px;    
+}
+
+main {
 	max-width: 1600px;
 	margin: 0 auto;
 }
