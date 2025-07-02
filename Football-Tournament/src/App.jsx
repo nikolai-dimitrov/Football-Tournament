@@ -7,16 +7,6 @@ import { Footer } from './components/Footer/Footer'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    const readCsv = async () => {
-      const someData = await fetch('/data/players.csv');
-      const result = await someData.text()
-      console.log(result)
-
-    }
-    readCsv()
-  }, [])
   return (
     <>
       <header>
