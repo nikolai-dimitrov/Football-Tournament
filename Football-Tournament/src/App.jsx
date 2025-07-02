@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router'
+import { Navigation } from './components/Navigation/Navigation'
 import { Home } from './components/Home/Home'
 
 
@@ -15,9 +17,11 @@ function App() {
   }, [])
   return (
     <>
-    <div>
-      <h1 className="text-">Some Text</h1>
-    </div>
+      <header>
+        <Navigation />
+      </header>
+      <div>
+      </div>
     </>
   )
 }
