@@ -8,10 +8,9 @@ const parseCsv = (textData) => {
         // for each header map its corresponding value from the line !(headers and lines length is equal)!
         // header[0] -> id : line[0] -> 1 = id: 1 
         headers.forEach((value, index) => tempObject[value] = lineValues[index]);
-        console.log(lineValues)
         return tempObject
     })
-
+    
     return arrayWithDataObjects
 }
 
@@ -19,7 +18,7 @@ const fetchCsv = async (filePath) => {
 	const someData = await fetch(filePath); // "/data/players.csv"
 	const textData = await someData.text();
 
-    parseCsv(textData);
+    return parseCsv(textData);
 };
 
 
