@@ -14,17 +14,15 @@ export const TournamentProvider = ({ children }) => {
             csvFileProcessor.getMatches(),
             csvFileProcessor.getTeams(),
         ]).then(([matchesData, teamsData]) => {
-            setMatches(matchesData);
-            setTeams(teamsData)
 
             const tempTeamsObject = {};
             // Create object with id = Team Name
-            teams.forEach((el, index) => {
+            teamsData.forEach((el, index) => {
                 tempTeamsObject[el.ID] = el.Name
             });
         
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name
-            const mappedMatches = matches.map((currentMatch) => {
+            const mappedMatches = matchesData.map((currentMatch) => {
                 return {
                     ...currentMatch,
                     ATeamName: tempTeamsObject[currentMatch.ATeamID],
@@ -32,14 +30,17 @@ export const TournamentProvider = ({ children }) => {
                 }
             });
 
-            setMappedMatchesWithTeamNames((state) => ({...state , mappedMatches}))
+            setMatches(matchesData);
+            setTeams(teamsData)
+            setMappedMatchesWithTeamNames(mappedMatches)
+
         }).catch((error) => console.log(error));
     }, [])
 
     console.log(mappedMatchesWithTeamNames)
 
-    let values = {
-        mappedMatchesWithTeamNames
+    const values = {
+        mappedMatchesWithTeamNames,
     }
 
     return (
