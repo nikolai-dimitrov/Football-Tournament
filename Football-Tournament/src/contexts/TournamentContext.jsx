@@ -7,6 +7,7 @@ export const TournamentProvider = ({ children }) => {
     const [teams, setTeams] = useState([]);
     const [records, setRecords] = useState([]);
     const [matches, setMatches] = useState([]);
+    const [mappedMatchesWithTeamNames, setMappedMatchesWithTeamNames] = useState([]);
 
     useEffect(() => {
         Promise.all([
@@ -15,28 +16,31 @@ export const TournamentProvider = ({ children }) => {
         ]).then(([matchesData, teamsData]) => {
             setMatches(matchesData);
             setTeams(teamsData)
+
+            const tempTeamsObject = {};
+            // Create object with id = Team Name
+            teams.forEach((el, index) => {
+                tempTeamsObject[el.ID] = el.Name
+            });
+        
+            // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name
+            const mappedMatches = matches.map((currentMatch) => {
+                return {
+                    ...currentMatch,
+                    ATeamName: tempTeamsObject[currentMatch.ATeamID],
+                    BTeamName: tempTeamsObject[currentMatch.BTeamID]
+                }
+            });
+
+            setMappedMatchesWithTeamNames((state) => ({...state , mappedMatches}))
         }).catch((error) => console.log(error));
     }, [])
 
-    // Map ATeam name with ATeamID and BTeam name with BTeamID (implement reduce for better performance)
-    const mappedTeamsWithMatches = matches.map((currentMatch) => {
-        const aTeam = teams.find((el) => el.ID === currentMatch.ATeamID)
-        const bTeam = teams.find((el) => el.ID === currentMatch.BTeamID)
-        
-        return {
-            ...currentMatch,
-            ATeamName: aTeam?.Name,
-            BTeamName: bTeam?.Name
-        }
-    })
+    console.log(mappedMatchesWithTeamNames)
 
-    console.log(mappedTeamsWithMatches)
-    
     let values = {
-        x: 5
+        mappedMatchesWithTeamNames
     }
-
-
 
     return (
         <TournamentContext.Provider value={values}>
