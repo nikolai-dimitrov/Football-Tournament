@@ -46,12 +46,7 @@ select {
 }
 
 #root {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	justify-content: space-between;
 	background-color: #010a0f;
-
 }
 
 body {
@@ -62,14 +57,29 @@ body {
 }
 
 header {
-    background-color: #001e28;
-    padding: 10px 10px;    
+	background-color: #001e28;
+	padding: 10px 10px;
 }
 
 main {
-	/* background-color: #010a0f; */
+	padding: 40px 0px 40px 0px;
+	max-width: 1600px;
+	margin: 0 auto;
 }
 
 footer {
 	background-color: #001e28;
+}
+
+@media screen and (min-height: 1025px) {
+	#root {
+		height: 100vh;
+	}
+
+	footer {
+		background-color: #001e28;
+		position: absolute;
+		width: 100%;
+		bottom: 0px;
+	}
 }
