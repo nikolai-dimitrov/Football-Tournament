@@ -71,7 +71,7 @@ footer {
 	background-color: #001e28;
 }
 
-@media screen and (min-height: 1025px) {
+@media screen and (min-height: 1180px) {
 	#root {
 		height: 100vh;
 	}
