@@ -29,18 +29,25 @@ export const TournamentProvider = ({ children }) => {
             matchesData.forEach((currentMatch) => {
 
                 const groupStageFinalDate = new Date('6/26/2024');
-                const matchDate = new Date(currentMatch.Date);
+                const currentMatchDate = new Date(currentMatch.Date);
                 // The group where match is played in (a team and b team are always in same group during the group stage)
                 const currentMatchGroup = tempTeamsObject[currentMatch.ATeamID][1];
+                const currentMatchScore = currentMatch.Score;
 
+                const [teamAscore, teamBscore ] = currentMatchScore.split('-');
+
+                console.log(teamAscore)
                 const tempExtendedMatchObject = {
                     ...currentMatch,
                     ATeamName: tempTeamsObject[currentMatch.ATeamID][0],
-                    BTeamName: tempTeamsObject[currentMatch.BTeamID][0]
+                    BTeamName: tempTeamsObject[currentMatch.BTeamID][0],
+                    teamAscore,
+                    teamBscore
+
                 }
 
                 // Get only matches which are played in groups stage
-                if (matchDate <= groupStageFinalDate) {
+                if (currentMatchDate <= groupStageFinalDate) {
                     if(!tempMatchesGroupStageSchema[currentMatchGroup]) {
                         tempMatchesGroupStageSchema[currentMatchGroup] = [];
                     }
