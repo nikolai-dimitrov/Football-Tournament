@@ -1,0 +1,64 @@
+.groupCardsContainer {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+
+.groupContainer {
+	background-color: #00141e;
+	max-width: 22%;
+	border-radius: 8px;
+}
+
+.groupContainer h3 {
+	color: #c6cccc;
+	background-color: #001e28;
+	padding: 5px 0px;
+	text-align: center;
+	font-size: 17px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+.groupContent {
+	padding: 10px;
+	color: #b1afaf;
+}
+
+.matchContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+    padding-bottom: 10px;
+	padding-top: 10px;
+    border-bottom: 1px solid #b1afaf;
+
+}
+
+.matchContainer:first-child {
+    padding-top: unset;
+}
+
+.matchContainer:last-child {
+	padding-bottom: unset;
+    border-bottom: unset;
+
+}
+
+.scoreInformationContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	width: 100%;
+}
+
+.scoreInformationContainer div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.winnerHighlight {
+	color: #fff;
+}
