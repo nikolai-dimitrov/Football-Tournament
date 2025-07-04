@@ -7,7 +7,7 @@ export const TournamentProvider = ({ children }) => {
     const [teams, setTeams] = useState([]);
     const [records, setRecords] = useState([]);
     const [matches, setMatches] = useState([]);
-    const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState({});
+    const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState([]);
     const [matchesPlayedAfterGroups, setMatchesPlayedAfterGroups] = useState([]);
 
     useEffect(() => {
@@ -22,8 +22,8 @@ export const TournamentProvider = ({ children }) => {
                 tempTeamsObject[el.ID] = [el.Name, el.Group]
             });
 
-            const tempMatchesGroupStageSchema = {};
-            const tempMatchesPlayedAfterGroups = [];
+            let tempMatchesGroupStageSchema = {};
+            let tempMatchesPlayedAfterGroups = [];
 
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name and set a group where match is played
             matchesData.forEach((currentMatch) => {
@@ -50,6 +50,9 @@ export const TournamentProvider = ({ children }) => {
                     tempMatchesPlayedAfterGroups.push(tempExtendedMatchObject);
                 }
             });
+
+            // Create array with nested arrays and sort them by group name which is in nested arrays at index 0 from A -> F
+            tempMatchesGroupStageSchema = Object.entries(tempMatchesGroupStageSchema).sort((a, b) => a[0].localeCompare(b[0]));
 
             setTeams(teamsData);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);

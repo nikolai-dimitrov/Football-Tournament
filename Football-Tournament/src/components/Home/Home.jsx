@@ -2,10 +2,11 @@ import { useContext } from "react"
 import { TournamentContext } from "../../contexts/TournamentContext"
 export const Home = () => {
     const { matchesGroupStageSchema, matchesPlayedAfterGroups, teams } = useContext(TournamentContext);
-
+    // console.log(Object.entries(matchesGroupStageSchema).sort((a, b) => a[0].localeCompare(b[0])))
+    console.log(matchesGroupStageSchema)
     return (
         <div>
-            {Object.entries(matchesGroupStageSchema)?.map(([matchGroupName, groupMatchesArray], index) => {
+            {matchesGroupStageSchema?.map(([matchGroupName, groupMatchesArray], index) => {
                 return (
                     <div key={index}>
                         {matchGroupName}
