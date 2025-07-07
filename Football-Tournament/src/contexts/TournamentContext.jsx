@@ -1,6 +1,8 @@
 import { useState, useEffect, createContext } from "react"
 import { csvFileProcessor } from "../services/processCsvService";
 
+import { createMatrix } from "../utils/createMatrix";
+
 export const TournamentContext = createContext();
 export const TournamentProvider = ({ children }) => {
     const [players, setPlayers] = useState([]);
@@ -8,7 +10,7 @@ export const TournamentProvider = ({ children }) => {
     const [records, setRecords] = useState([]);
     const [matches, setMatches] = useState([]);
     const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState([]);
-    const [matchesPlayedAfterGroups, setMatchesPlayedAfterGroups] = useState([]);
+    const [matchesPlayedAfterGroupsSchema, setMatchesPlayedAfterGroupsSchema] = useState([]);
 
     useEffect(() => {
         Promise.all([
@@ -18,15 +20,16 @@ export const TournamentProvider = ({ children }) => {
 
             const tempTeamsObject = {};
             // Create object with id = Team Name and Group
-            teamsData.forEach((el, index) => {
+            teamsData.forEach((el) => {
                 tempTeamsObject[el.ID] = [el.Name, el.Group]
             });
 
             let tempMatchesGroupStageSchema = {};
             let tempMatchesPlayedAfterGroups = [];
+            let tempMatchesPlayedAfterGroupsSchema = [];
 
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name and set a group where match is played
-            matchesData.forEach((currentMatch) => {
+            matchesData.forEach((currentMatch, index) => {
 
                 const ATeamName = tempTeamsObject[currentMatch.ATeamID][0];
                 const BTeamName = tempTeamsObject[currentMatch.BTeamID][0];
@@ -40,11 +43,25 @@ export const TournamentProvider = ({ children }) => {
                 const [teamAscore, teamBscore] = currentMatchScore.split('-');
                 let teamWinner = null;
 
-                if (Number(teamAscore) > Number(teamBscore)) {
-                    teamWinner = ATeamName;
-                }
-                else if (Number(teamAscore) < Number(teamBscore)) {
-                    teamWinner = BTeamName;
+                if (teamAscore.length > 1) {
+                    // Get scored penalties if match finishes with equal result
+                    const teamApenaltyScore = teamAscore[2];
+                    const teamBpenaltyScore = teamBscore[2];
+
+                    if (Number(teamApenaltyScore) > Number(teamBpenaltyScore)) {
+                        teamWinner = ATeamName;
+                    }
+                    else if (Number(teamApenaltyScore) < Number(teamBpenaltyScore)) {
+                        teamWinner = BTeamName;
+                    }
+
+                } else {
+                    if (Number(teamAscore) > Number(teamBscore)) {
+                        teamWinner = ATeamName;
+                    }
+                    else if (Number(teamAscore) < Number(teamBscore)) {
+                        teamWinner = BTeamName;
+                    }
                 }
 
                 const tempExtendedMatchObject = {
@@ -62,26 +79,32 @@ export const TournamentProvider = ({ children }) => {
                     if (!tempMatchesGroupStageSchema[currentMatchGroup]) {
                         tempMatchesGroupStageSchema[currentMatchGroup] = [];
                     }
+
                     tempMatchesGroupStageSchema[currentMatchGroup].push(tempExtendedMatchObject);
                 } else {
-                    tempExtendedMatchObject['group'] = null;
                     tempMatchesPlayedAfterGroups.push(tempExtendedMatchObject);
                 }
             });
+
+            // Sort by date to ensure last match will be the final
+            tempMatchesPlayedAfterGroups.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+            tempMatchesPlayedAfterGroupsSchema = createMatrix([8, 4, 2, 1], tempMatchesPlayedAfterGroups)
 
             // Create array with nested arrays and sort them by group name which is in nested arrays at index 0 from A -> F
             tempMatchesGroupStageSchema = Object.entries(tempMatchesGroupStageSchema).sort((a, b) => a[0].localeCompare(b[0]));
 
             setTeams(teamsData);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
-            setMatchesPlayedAfterGroups(tempMatchesPlayedAfterGroups);
+            setMatchesPlayedAfterGroupsSchema(tempMatchesPlayedAfterGroupsSchema);
+
+            console.log(tempMatchesPlayedAfterGroupsSchema)
 
         }).catch((error) => console.log(error));
     }, [])
 
     const values = {
         matchesGroupStageSchema,
-        matchesPlayedAfterGroups,
+        matchesPlayedAfterGroupsSchema,
         teams
     }
 
