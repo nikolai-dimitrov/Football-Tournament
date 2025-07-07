@@ -25,9 +25,16 @@ export const TournamentProvider = ({ children }) => {
             });
 
             let tempMatchesGroupStageSchema = {};
+            // Array with all matches played after group
             let tempMatchesPlayedAfterGroups = [];
+            // Matrix contains arrays, each array contains matches for every stage of tournament after the groups. (array[0] => 8 matches (rounds of eight), array[1] => 4 (quarter finals) and following.)
             let tempMatchesPlayedAfterGroupsSchema = [];
-
+            let tournamentStageNamesMapper = {
+                0: 'Round of Eight',
+                1: 'Quarter-Finals',
+                2: 'Semi-Finals',
+                3: 'Final',
+            }
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name and set a group where match is played
             matchesData.forEach((currentMatch, index) => {
 
@@ -88,7 +95,7 @@ export const TournamentProvider = ({ children }) => {
 
             // Sort by date to ensure last match will be the final
             tempMatchesPlayedAfterGroups.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-            tempMatchesPlayedAfterGroupsSchema = createMatrix([8, 4, 2, 1], tempMatchesPlayedAfterGroups)
+            tempMatchesPlayedAfterGroupsSchema = createMatrix([8, 4, 2, 1], tempMatchesPlayedAfterGroups).map((arrayElement, index) => [tournamentStageNamesMapper[index], arrayElement]);
 
             // Create array with nested arrays and sort them by group name which is in nested arrays at index 0 from A -> F
             tempMatchesGroupStageSchema = Object.entries(tempMatchesGroupStageSchema).sort((a, b) => a[0].localeCompare(b[0]));
@@ -96,8 +103,6 @@ export const TournamentProvider = ({ children }) => {
             setTeams(teamsData);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
             setMatchesPlayedAfterGroupsSchema(tempMatchesPlayedAfterGroupsSchema);
-
-            console.log(tempMatchesPlayedAfterGroupsSchema)
 
         }).catch((error) => console.log(error));
     }, [])
