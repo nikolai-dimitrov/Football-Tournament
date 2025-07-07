@@ -1,12 +1,28 @@
+.home {
+	display: flex;
+	gap: 50px;
+}
+
+/* Group stage section */
 .groupCardsContainer {
 	display: flex;
 	gap: 10px;
 	flex-direction: column;
+	width: 22%;
+	height: 85vh;
+	overflow: scroll;
+}
+
+.groupCardsContainer h2 {
+    position: sticky;
+    top: 0px;
+    background-color: #010a0f;
+    color: #c6cccc;
+    padding-bottom: 10px;
 }
 
 .groupContainer {
 	background-color: #00141e;
-	max-width: 22%;
 	border-radius: 8px;
 }
 
@@ -30,20 +46,18 @@
 	flex-direction: row;
 	align-items: center;
 	gap: 10px;
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 	padding-top: 10px;
-    border-bottom: 1px solid #b1afaf;
-
+	border-bottom: 1px solid #b1afaf;
 }
 
 .matchContainer:first-child {
-    padding-top: unset;
+	padding-top: unset;
 }
 
 .matchContainer:last-child {
 	padding-bottom: unset;
-    border-bottom: unset;
-
+	border-bottom: unset;
 }
 
 .scoreInformationContainer {
@@ -61,4 +75,42 @@
 
 .winnerHighlight {
 	color: #fff;
+}
+
+/* Section after the group stage */
+.matchBracketsContainer {
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+	gap: 50px;
+    width: 75%;
+    color: #b1afaf;
+}
+
+.qualificationMatchesContent {
+    width: 20%;
+}
+
+.qualificationMatchesContent h3 {
+    color: #c6cccc;
+    background-color: #001e28;
+    padding: 5px 0px;
+    text-align: center;
+    font-size: 17px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.matchBracket {
+	display: flex;
+	align-items: center;
+    gap: 10px;
+	background-color: #00141e;
+	border-radius: 8px;
+    padding: 10px;
+}
+
+.matchBracket:not(:last-child) {
+	margin-bottom: 10px;
 }
