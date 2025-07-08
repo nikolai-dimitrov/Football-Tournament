@@ -1,34 +1,14 @@
-export const generateMatchesRelation = (rounds) => {
-    const matchesRelations = {};
-	for (let i = 1; i < rounds.length; i++) {
-
-		// rounds[i - 1][1] -> [1] index because rounds contains nested arrays with index[0] - phase name and index[1] array with match objects for that phase
-		const previousRound = rounds[i - 1][1];
-		const currentRound = rounds[i][1];
-
-		currentRound.forEach((currentMatch) => {
-			const links = previousRound.filter(
-				(previousMatch) =>
-					previousMatch.teamWinner === currentMatch.ATeamName ||
-					previousMatch.teamWinner === currentMatch.BTeamName
-			);
-
-            if(links.length === 2) {
-                matchesRelations[currentMatch.ID] = links.map((el) => el)
-            }
-		});
-	}
-    console.log(matchesRelations)
-    return matchesRelations
-};
-
-
-export const createMatrix = (arrayWithRowsCount, arrayWithElements) => {
+// Create matrix which represent the structure of matches after group stage. Every array contains match objects represents the state of tournament like round of 8 , round of 4 round of 2 and final round.
+export const createTournamentRoundsMatrix = (
+	arrayWithRowsLength,
+	arrayWithElements
+) => {
 	const matrix = [];
 	let currentIndex = 0;
-	for (let i = 0; i < arrayWithRowsCount.length; i++) {
+
+	for (let i = 0; i < arrayWithRowsLength.length; i++) {
 		const tempArray = [];
-		for (let j = 0; j < arrayWithRowsCount[i]; j++) {
+		for (let j = 0; j < arrayWithRowsLength[i]; j++) {
 			tempArray.push(arrayWithElements[currentIndex]);
 			currentIndex += 1;
 		}
@@ -37,4 +17,32 @@ export const createMatrix = (arrayWithRowsCount, arrayWithElements) => {
 	}
 
 	return matrix;
+};
+
+// Iterate over rounds which is matrix and creates an array with object with sorted matches arranged matches in order depending on which team plays against which team one after the others and grouped by 2.
+// sortedMatches[0] plays vs sortedMatches[1], sortedMatches[2] plays vs sortedMatches[3] and all others.
+// This function returns array with sorted matches.
+export const convertMatrixToSortedArray = (rounds) => {
+	const sortedMatches = [];
+
+	for (let i = 1; i < rounds.length; i++) {
+		const previousRound = rounds[i - 1];
+		const currentRound = rounds[i];
+
+		currentRound.forEach((currentMatch) => {
+			const links = previousRound.filter(
+				(previousMatch) =>
+					previousMatch.teamWinner === currentMatch.ATeamName ||
+					previousMatch.teamWinner === currentMatch.BTeamName
+			);
+
+			sortedMatches.push(...links);
+		});
+
+		if (i === 3) {
+			sortedMatches.push(...currentRound);
+		}
+	}
+
+	return sortedMatches;
 };

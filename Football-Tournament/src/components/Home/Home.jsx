@@ -4,12 +4,12 @@ import { TournamentContext } from "../../contexts/TournamentContext"
 import styles from './home.module.css'
 
 export const Home = () => {
-    const { matchesGroupStageSchema, matchesPlayedAfterGroupsSchema, teams } = useContext(TournamentContext);
-    console.log(matchesGroupStageSchema)
+    const { matchesGroupStageSchema, matchesPlayedAfterGroupsSchema} = useContext(TournamentContext);
+
     return (
         <div className={styles.home}>
             <section className={styles.groupCardsContainer}>
-            <h2>Groups</h2>
+                <h2>Groups</h2>
                 {matchesGroupStageSchema?.map(([matchGroupName, groupMatchesArray], index) => {
                     return (
                         <div className={styles.groupContainer} key={index}>
@@ -38,31 +38,30 @@ export const Home = () => {
                 })}
             </section>
             <section className={styles.matchBracketsContainer}>
-                {matchesPlayedAfterGroupsSchema.map(([tournamentCurrentStageName ,matchesArray], index) => {
+                {matchesPlayedAfterGroupsSchema.map((matchesArray, index) => {
                     return (
                         <ul key={index} className={styles.qualificationMatchesContent}>
-                            <h3>{tournamentCurrentStageName }</h3>
+                            <h3>{['Round of 16', 'Quarter-Finals', 'Semi-Finals', 'Finals'][index]}</h3>
                             {matchesArray.map((currentMatch) => {
                                 return (
                                     <li key={currentMatch.ID} className={styles.matchBracket}>
-                                            <p>{currentMatch.Date}</p>
-                                            <div className={styles.scoreInformationContainer}>
-                                                <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
-                                                    <p>{currentMatch.ATeamName}</p>
-                                                    <p>{currentMatch.teamAscore}</p>
-                                                </div>
-                                                <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
-                                                    <p>{currentMatch.BTeamName}</p>
-                                                    <p>{currentMatch.teamBscore}</p>
-                                                </div>
+                                        <p>{currentMatch.Date}</p>
+                                        <div className={styles.scoreInformationContainer}>
+                                            <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
+                                                <p>{currentMatch.ATeamName}</p>
+                                                <p>{currentMatch.teamAscore}</p>
                                             </div>
+                                            <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
+                                                <p>{currentMatch.BTeamName}</p>
+                                                <p>{currentMatch.teamBscore}</p>
+                                            </div>
+                                        </div>
                                     </li>
                                 )
                             })}
                         </ul>
                     )
                 })}
-                {/* Qualified teams schema section */}
             </section>
         </div>
 
