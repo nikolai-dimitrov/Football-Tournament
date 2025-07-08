@@ -75,8 +75,7 @@
 .matchBracketsContainer {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	gap: 50px;
+	gap: 80px;
 	width: 75%;
 	color: #b1afaf;
 }
@@ -96,8 +95,14 @@
 	margin-bottom: 10px;
 }
 
+.qualificationMatchesContent ul {
+	display: flex;
+	flex-direction: column;
+}
+
 .matchBracket {
 	display: flex;
+	position: relative;
 	align-items: center;
 	gap: 10px;
 	background-color: #00141e;
@@ -105,6 +110,88 @@
 	padding: 10px;
 }
 
-.matchBracket:not(last-child) {
-	margin-bottom: 7px !important;
+.connector {
+    position: absolute;
+}
+
+.qualificationMatchesContent .roundOfEight {
+	gap: 15px;
+}
+
+.roundOfEight .matchBracket::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: -70px;
+	width: 70px;
+	height: 2px;
+	background-color: #fff;
+}
+
+.roundOfEight .matchBracket.even::before {
+	content: "";
+	position: absolute;
+	top: -43px;
+	right: -70px;
+	width: 2px;
+	height: 75px;
+	background-color: #fff;
+}
+
+.qualificationMatchesContent .quarterFinals {
+	gap: 88px;
+}
+
+.quarterFinals .matchBracket::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: -70px;
+	width: 70px;
+	height: 2px;
+	background-color: #fff;
+}
+
+.quarterFinals .matchBracket.even::before {
+	content: "";
+	position: absolute;
+	top: -116px;
+	right: -70px;
+	width: 2px;
+	height: 145px;
+	background-color: #fff;
+}
+
+.qualificationMatchesContent .semiFinals {
+	gap: 235px;
+}
+
+.semiFinals .matchBracket::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: -70px;
+	width: 70px;
+	height: 2px;
+	background-color: #fff;
+}
+
+.semiFinals .matchBracket.even::before {
+	content: "";
+	position: absolute;
+	top: -263px;
+	right: -70px;
+	width: 2px;
+	height: 293px;
+	background-color: #fff;
+}
+
+.quarterFinals .connector,
+.semiFinals .connector,
+.finals .connector {
+    left: -10px;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background-color: #fff;
 }
