@@ -1,10 +1,11 @@
 import { useContext } from "react"
+import { Link } from "react-router"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
 import styles from './home.module.css'
 
 export const Home = () => {
-    const { matchesGroupStageSchema, matchesPlayedAfterGroupsSchema} = useContext(TournamentContext);
+    const { matchesGroupStageSchema, matchesPlayedAfterGroupsSchema } = useContext(TournamentContext);
 
     return (
         <div className={styles.home}>
@@ -17,19 +18,24 @@ export const Home = () => {
                             <ul className={styles.groupContent}>
                                 {groupMatchesArray.map((currentMatch, index) => {
                                     return (
-                                        <li className={styles.matchContainer} key={currentMatch.ID}>
-                                            <p>{currentMatch.Date}</p>
-                                            <div className={styles.scoreInformationContainer}>
-                                                <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
-                                                    <p>{currentMatch.ATeamName}</p>
-                                                    <p>{currentMatch.teamAscore}</p>
+                                        <Link
+                                            key={currentMatch.ID}
+                                            to={`/match/details/${currentMatch.ID}`}
+                                        >
+                                            <li className={styles.matchContainer}>
+                                                <p>{currentMatch.Date}</p>
+                                                <div className={styles.scoreInformationContainer}>
+                                                    <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
+                                                        <p>{currentMatch.ATeamName}</p>
+                                                        <p>{currentMatch.teamAscore}</p>
+                                                    </div>
+                                                    <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
+                                                        <p>{currentMatch.BTeamName}</p>
+                                                        <p>{currentMatch.teamBscore}</p>
+                                                    </div>
                                                 </div>
-                                                <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
-                                                    <p>{currentMatch.BTeamName}</p>
-                                                    <p>{currentMatch.teamBscore}</p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        </Link>
                                     )
                                 })}
                             </ul>
@@ -39,27 +45,35 @@ export const Home = () => {
             </section>
             <section className={styles.matchBracketsContainer}>
                 {matchesPlayedAfterGroupsSchema.map((matchesArray, index) => {
+
                     return (
-                        <ul key={index} className={styles.qualificationMatchesContent}>
+                        <div key={index} className={styles.qualificationMatchesContent}>
                             <h3>{['Round of 16', 'Quarter-Finals', 'Semi-Finals', 'Finals'][index]}</h3>
-                            {matchesArray.map((currentMatch) => {
-                                return (
-                                    <li key={currentMatch.ID} className={styles.matchBracket}>
-                                        <p>{currentMatch.Date}</p>
-                                        <div className={styles.scoreInformationContainer}>
-                                            <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
-                                                <p>{currentMatch.ATeamName}</p>
-                                                <p>{currentMatch.teamAscore}</p>
-                                            </div>
-                                            <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
-                                                <p>{currentMatch.BTeamName}</p>
-                                                <p>{currentMatch.teamBscore}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                )
-                            })}
-                        </ul>
+                            <ul>
+                                {matchesArray.map((currentMatch) => {
+                                    return (
+                                        <Link
+                                            key={currentMatch.ID}
+                                            to={`/match/details/${currentMatch.ID}`}
+                                        >
+                                            <li className={styles.matchBracket}>
+                                                <p>{currentMatch.Date}</p>
+                                                <div className={styles.scoreInformationContainer}>
+                                                    <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
+                                                        <p>{currentMatch.ATeamName}</p>
+                                                        <p>{currentMatch.teamAscore}</p>
+                                                    </div>
+                                                    <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
+                                                        <p>{currentMatch.BTeamName}</p>
+                                                        <p>{currentMatch.teamBscore}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </Link>
+                                    )
+                                })}
+                            </ul>
+                        </div>
                     )
                 })}
             </section>

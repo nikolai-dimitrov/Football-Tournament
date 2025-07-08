@@ -16,7 +16,7 @@ function App() {
         <TournamentProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="match-details/:id" element={<Home />} /> */}
+            <Route path="match/details/:id" element={<Home />} />
             {/* <Route path="team-details/:id" element={<Home />} /> */}
           </Routes>
         </TournamentProvider>

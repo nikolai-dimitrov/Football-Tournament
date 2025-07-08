@@ -3,6 +3,10 @@
 	gap: 50px;
 }
 
+.home a {
+	color: unset;
+}
+
 /* Group stage section */
 .groupCardsContainer {
 	display: flex;
@@ -14,11 +18,11 @@
 }
 
 .groupCardsContainer h2 {
-    position: sticky;
-    top: 0px;
-    background-color: #010a0f;
-    color: #c6cccc;
-    padding-bottom: 10px;
+	position: sticky;
+	top: 0px;
+	background-color: #010a0f;
+	color: #c6cccc;
+	padding-bottom: 10px;
 }
 
 .groupContainer {
@@ -48,16 +52,6 @@
 	gap: 10px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	border-bottom: 1px solid #b1afaf;
-}
-
-.matchContainer:first-child {
-	padding-top: unset;
-}
-
-.matchContainer:last-child {
-	padding-bottom: unset;
-	border-bottom: unset;
 }
 
 .scoreInformationContainer {
@@ -81,36 +75,36 @@
 .matchBracketsContainer {
 	display: flex;
 	align-items: center;
-    justify-content: space-between;
+	justify-content: space-between;
 	gap: 50px;
-    width: 75%;
-    color: #b1afaf;
+	width: 75%;
+	color: #b1afaf;
 }
 
 .qualificationMatchesContent {
-    width: 20%;
+	width: 20%;
 }
 
 .qualificationMatchesContent h3 {
-    color: #c6cccc;
-    background-color: #001e28;
-    padding: 5px 0px;
-    text-align: center;
-    font-size: 17px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    margin-bottom: 5px;
+	color: #c6cccc;
+	background-color: #001e28;
+	padding: 5px 0px;
+	text-align: center;
+	font-size: 17px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	margin-bottom: 10px;
 }
 
 .matchBracket {
 	display: flex;
 	align-items: center;
-    gap: 10px;
+	gap: 10px;
 	background-color: #00141e;
 	border-radius: 8px;
-    padding: 10px;
+	padding: 10px;
 }
 
-.matchBracket:not(:last-child) {
-	margin-bottom: 10px;
+.matchBracket:not(last-child) {
+	margin-bottom: 7px !important;
 }
