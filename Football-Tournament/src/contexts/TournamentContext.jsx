@@ -32,7 +32,7 @@ export const TournamentProvider = ({ children }) => {
             let tempMatchesPlayedAfterGroupsSchema = [];
 
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name and set a group where match is played
-            matchesData.forEach((currentMatch, index) => {
+            matchesData.forEach((currentMatch) => {
 
                 const ATeamName = tempTeamsObject[currentMatch.ATeamID][0];
                 const BTeamName = tempTeamsObject[currentMatch.BTeamID][0];
