@@ -1,23 +1,24 @@
 import { useState, useEffect, createContext } from "react";
 import { csvFileProcessor } from "../services/processCsvService";
 
-import { createTournamentRoundsMatrix, convertMatrixToSortedArray } from "../utils/buildTournament";
+import { createTournamentRoundsMatrix, convertMatrixToSortedArray, createPlayersToTeamsRelations, createPlayersToMatchesRelations } from "../utils/buildTournament";
 
 export const TournamentContext = createContext();
 export const TournamentProvider = ({ children }) => {
-    const [players, setPlayers] = useState([]);
-    const [teams, setTeams] = useState([]);
-    const [records, setRecords] = useState([]);
+    const [playersMappedWithTeams, setPlayersMappedWithTeams] = useState({});
+    const [playersMappedWithMatches, setPlayersMappedWithMatches] = useState({});
+
     const [matches, setMatches] = useState([]);
     const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState([]);
     const [matchesPlayedAfterGroupsSchema, setMatchesPlayedAfterGroupsSchema] = useState([]);
-
 
     useEffect(() => {
         Promise.all([
             csvFileProcessor.getMatches(),
             csvFileProcessor.getTeams(),
-        ]).then(([matchesData, teamsData]) => {
+            csvFileProcessor.getPlayers(),
+            csvFileProcessor.getRecords(),
+        ]).then(([matchesData, teamsData, playersData, playerRecordsData]) => {
 
             const tempTeamsObject = {};
             // Create object with id = Team Name and Group
@@ -30,7 +31,6 @@ export const TournamentProvider = ({ children }) => {
             let tempMatchesPlayedAfterGroups = [];
             // Matrix contains arrays, each array contains matches for every stage of tournament after the groups. (array[0] => 8 matches (rounds of eight), array[1] => 4 (quarter finals) and following.)
             let tempMatchesPlayedAfterGroupsSchema = [];
-
             // Iterate all matches and set ATeamName = Team Name and same operation for BTeamName = Team Name and set a group where match is played
             matchesData.forEach((currentMatch) => {
 
@@ -106,21 +106,32 @@ export const TournamentProvider = ({ children }) => {
             // Convert sorted array with match objects to matrix which represents the final sorted tournament schema.
             const tempSortedMatchesPlayedAfterGroupsSchema = createTournamentRoundsMatrix([8, 4, 2, 1], sortedMatchesArray);
 
-            console.log(tempSortedMatchesPlayedAfterGroupsSchema);
+            // Mapped TeamID:[{player}, {player}]
+            // TODO: Use playersMatchesRelation in Team Details and remove that.
+            const playersTeamsRelationsObject = createPlayersToTeamsRelations(playersData);
 
-            setTeams(teamsData);
+            // Record object with added additional property playerDetails which contains player information like FullName Position etc.
+            // Mapped MatchID:[{playerRecord}, {playerRecord}] where playerRecord is object with information matchId, playerId, fromMinutes, toMinutes and playerDetails: {} where playerDetails contains player information like: name position etc.
+            const playersMatchesRelationsObject = createPlayersToMatchesRelations(playerRecordsData, playersData);
+
+            setMatches(matchesData)
+            setPlayersMappedWithTeams(playersTeamsRelationsObject);
+            setPlayersMappedWithMatches(playersMatchesRelationsObject);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
             setMatchesPlayedAfterGroupsSchema(tempSortedMatchesPlayedAfterGroupsSchema);
 
         }).catch((error) => console.log(error));
 
-    }, [])
-
+    }, []);
 
     const values = {
+        matches,
+        playersMappedWithTeams,
+        playersMappedWithMatches,
         matchesGroupStageSchema,
         matchesPlayedAfterGroupsSchema,
-    }
+
+    };
 
     return (
         <TournamentContext.Provider value={values}>

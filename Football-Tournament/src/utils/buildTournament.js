@@ -46,3 +46,46 @@ export const convertMatrixToSortedArray = (rounds) => {
 
 	return sortedMatches;
 };
+
+export const createPlayersToTeamsRelations = (playersData) => {
+	const playersToTeamsRelations = {};
+
+	playersData.forEach((currentPlayer) => {
+		if (!playersToTeamsRelations[currentPlayer.TeamID]) {
+			playersToTeamsRelations[currentPlayer.TeamID] = [];
+		}
+
+		playersToTeamsRelations[currentPlayer.TeamID].push(currentPlayer);
+	});
+
+	return playersToTeamsRelations;
+};
+
+export const createPlayersToMatchesRelations = (
+	playersRecords,
+	playersData
+) => {
+	const playersRecordsToMatchesRelation = {};
+
+	// Sort playersData to prevent iterating to get the player detailed information because if using array method which iterates over the players there will be 600 iterations for every playerRecords
+	playersData.sort((a, b) => a.ID - b.ID);
+
+	playersRecords.forEach((currentPlayerRecord) => {
+		if (!playersRecordsToMatchesRelation[currentPlayerRecord.MatchID]) {
+			playersRecordsToMatchesRelation[currentPlayerRecord.MatchID] = [];
+		}
+
+		const currentPlayerId = currentPlayerRecord["PlayerID"];
+		currentPlayerRecord = {
+			...currentPlayerRecord,
+			// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
+			playerDetails: playersData[currentPlayerId - 1],
+
+		};
+
+		playersRecordsToMatchesRelation[currentPlayerRecord.MatchID].push(
+			currentPlayerRecord
+		);
+	});
+	return playersRecordsToMatchesRelation;
+};
