@@ -1,0 +1,133 @@
+.fieldsContainer {
+	display: flex;
+	justify-content: space-around;
+}
+
+.field {
+	width: 30%;
+	height: 700px;
+	background-color: #001e28;
+	position: relative;
+	border: 2px solid #fff;
+}
+
+.centerLine {
+	width: 100%;
+	height: 2px;
+	background-color: #fff;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.centerCircle {
+	width: 130px;
+	height: 130px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Top side of the pitch */
+.penaltyFieldTop {
+	width: 70%;
+	height: 130px;
+	border: 2px solid #fff;
+	background-color: #001e28;
+	border-top: unset;
+    position: absolute;
+    top: 0;
+	left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.goalTargetFieldTop {
+	width: 35%;
+	height: 50px;
+	border: 2px solid #fff;
+	border-top: unset;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+    z-index: 3;
+}
+
+.goalTargetTop {
+    width: 14%;
+	height: 25px;
+	border: 2px solid #fff;
+	border-bottom: unset;
+	position: absolute;
+	top: -27px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.penaltyArcTop {
+    width: 75px;
+	height: 55px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* Bottom side of the pitch */
+.penaltyFieldBottom {
+	width: 70%;
+	height: 130px;
+	border: 2px solid #fff;
+	background-color: #001e28;
+	border-bottom: unset;
+    position: absolute;
+    bottom: 0;
+	left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.goalTargetFieldBottom {
+	width: 35%;
+	height: 50px;
+	border: 2px solid #fff;
+	border-bottom: unset;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+    z-index: 3;
+}
+
+.goalTargetBottom {
+    width: 14%;
+	height: 25px;
+	border: 2px solid #fff;
+	border-top: unset;
+	position: absolute;
+	bottom: -27px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.penaltyArcBottom {
+    width: 75px;
+	height: 55px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+	position: absolute;
+	bottom: 100px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* Players' Positions */
+.positionLine {
+	display: flex;
+}

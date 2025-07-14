@@ -48,12 +48,30 @@ export const MatchDetails = () => {
             <>
                 <h1>Match Details</h1>
                 <div className={styles.fieldsContainer}>
-                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject]) => {
+                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject],index) => {
                         return (
-                            <div className={styles.field}>
+                            <div key={index} className={styles.field}>
+                                {/* center */}
+                                <div className={styles.centerLine}></div>
+                                <div className={styles.centerCircle}></div>
+
+                                {/* bottom */}
+                                <div className={styles.penaltyFieldBottom}></div>
+                                <div className={styles.goalTargetFieldBottom}></div>
+                                <div className={styles.goalTargetBottom}></div>
+
+                                {/* top */}
+                                <div className={styles.penaltyFieldTop}></div>
+                                <div className={styles.goalTargetFieldTop}></div>
+                                <div className={styles.goalTargetTop}></div>
+
+                                {/* penalty half circles */}
+                                <div className={styles.penaltyArcBottom}></div>
+                                <div className={styles.penaltyArcTop}></div>
+{/* 
                                 {Object.entries(positionObject).map(([positionName, playersArray]) => {
                                     return (
-                                        <div>
+                                        <div className={styles.positionLine}>
                                             {playersArray.map((currentPlayer) => {
                                                 return (
                                                     <>
@@ -69,7 +87,7 @@ export const MatchDetails = () => {
                                             })}
                                         </div>
                                     )
-                                })}
+                                })} */}
                             </div>
                         )
                     })}
