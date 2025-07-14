@@ -38,11 +38,11 @@
 	border: 2px solid #fff;
 	background-color: #001e28;
 	border-top: unset;
-    position: absolute;
-    top: 0;
+	position: absolute;
+	top: 0;
 	left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
+	transform: translateX(-50%);
+	z-index: 2;
 }
 
 .goalTargetFieldTop {
@@ -54,11 +54,11 @@
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-    z-index: 3;
+	z-index: 3;
 }
 
 .goalTargetTop {
-    width: 14%;
+	width: 14%;
 	height: 25px;
 	border: 2px solid #fff;
 	border-bottom: unset;
@@ -69,10 +69,10 @@
 }
 
 .penaltyArcTop {
-    width: 75px;
+	width: 75px;
 	height: 55px;
-    border: 2px solid #fff;
-    border-radius: 50%;
+	border: 2px solid #fff;
+	border-radius: 50%;
 	position: absolute;
 	top: 100px;
 	left: 50%;
@@ -86,11 +86,11 @@
 	border: 2px solid #fff;
 	background-color: #001e28;
 	border-bottom: unset;
-    position: absolute;
-    bottom: 0;
+	position: absolute;
+	bottom: 0;
 	left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
+	transform: translateX(-50%);
+	z-index: 2;
 }
 
 .goalTargetFieldBottom {
@@ -102,11 +102,11 @@
 	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
-    z-index: 3;
+	z-index: 3;
 }
 
 .goalTargetBottom {
-    width: 14%;
+	width: 14%;
 	height: 25px;
 	border: 2px solid #fff;
 	border-top: unset;
@@ -117,10 +117,10 @@
 }
 
 .penaltyArcBottom {
-    width: 75px;
+	width: 75px;
 	height: 55px;
-    border: 2px solid #fff;
-    border-radius: 50%;
+	border: 2px solid #fff;
+	border-radius: 50%;
 	position: absolute;
 	bottom: 100px;
 	left: 50%;
@@ -130,4 +130,48 @@
 /* Players' Positions */
 .positionLine {
 	display: flex;
+	position: relative;
+	z-index: 10;
+	justify-content: space-around;
+    height: 97px;
+}
+.GK {
+    top: 33px;
+}
+
+
+.DF {
+    top: 15px;
+}
+
+.MF {
+	top: calc(50% - 210px);
+}
+
+.FW {
+	top: calc(700px - 388px);
+	transform: translateY(-50%);
+}
+
+.playerInformationContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    gap: 5px;
+    color: #c6cccc;
+}
+
+.playerPosition {
+	color: #001e28;
+    background-color: #c6cccc;
+	border-radius: 100%;
+	padding: 5px;
+	width: 33px;
+	height: 33px;
+	text-align: center;
+	line-height: 1.5;
+}
+
+.playerName {
+    text-align: center;
 }

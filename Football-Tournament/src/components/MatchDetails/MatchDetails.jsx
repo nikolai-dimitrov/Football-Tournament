@@ -18,19 +18,27 @@ export const MatchDetails = () => {
         const allPlayersInMatch = playersMappedWithMatches[id];
 
         const tempTeamsAndPositionsSchema = {
-            [ATeamID]: {},
-            [BTeamID]: {}
+            [ATeamID]: {
+                "GK": [],
+                "DF": [],
+                "MF": [],
+                "FW": []
+            },
+
+            [BTeamID]: {
+                "GK": [],
+                "DF": [],
+                "MF": [],
+                "FW": []
+            }
         };
+
 
         allPlayersInMatch.forEach((currentPlayer) => {
             const currentPlayerPosition = currentPlayer.playerDetails.Position;
             const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
-
-            // For each position create key DF, MF, CF and value array which contains players who play in that position
-            if (!(currentPlayerPosition in tempTeamsAndPositionsSchema[currentPlayerTeamId])) {
-                tempTeamsAndPositionsSchema[currentPlayerTeamId][currentPlayerPosition] = [];
-            }
-
+        
+            // Check if player already exist before adding him to the array
             tempTeamsAndPositionsSchema[currentPlayerTeamId][currentPlayerPosition].push(currentPlayer);
 
         })
@@ -48,7 +56,7 @@ export const MatchDetails = () => {
             <>
                 <h1>Match Details</h1>
                 <div className={styles.fieldsContainer}>
-                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject],index) => {
+                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => {
                         return (
                             <div key={index} className={styles.field}>
                                 {/* center */}
@@ -68,26 +76,27 @@ export const MatchDetails = () => {
                                 {/* penalty half circles */}
                                 <div className={styles.penaltyArcBottom}></div>
                                 <div className={styles.penaltyArcTop}></div>
-{/* 
-                                {Object.entries(positionObject).map(([positionName, playersArray]) => {
+
+                                {Object.entries(positionObject).map(([positionName, playersArray], index) => {
                                     return (
-                                        <div className={styles.positionLine}>
+                                        <div key={index} className={`${styles.positionLine} ${styles[positionName]}`}>
                                             {playersArray.map((currentPlayer) => {
                                                 return (
                                                     <>
                                                         {
                                                             currentPlayer.fromMinutes == '0' &&
-                                                            <div>
-                                                                <div>{currentPlayer.playerDetails.Position}</div>
+                                                            <div className={styles.playerInformationContainer}>
+                                                                <div className={styles.playerPosition}>{currentPlayer.playerDetails.Position}</div>
+                                                                <div>{currentPlayer.playerDetails.TeamNumber}</div>
+                                                                <div className={styles.playerName}>{currentPlayer.playerDetails.FullName}</div>
                                                             </div>
-
                                                         }
                                                     </>
                                                 )
                                             })}
                                         </div>
                                     )
-                                })} */}
+                                })}
                             </div>
                         )
                     })}
