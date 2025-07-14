@@ -80,11 +80,12 @@ export const createPlayersToMatchesRelations = (
 		// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
 		const playerDetails = playersData[currentPlayerId - 1];
 
-		let [, captainString ]=  playerDetails.FullName.split("(");
+		const [FullName, captainString ] =  playerDetails.FullName.split("(");
+
 		let isCaptain = false;
 		if(captainString) {
-			captainString = captainString.replace(')','')
 			isCaptain = true;
+			playerDetails.FullName = FullName;
 		}
 
 		currentPlayerRecord = {
