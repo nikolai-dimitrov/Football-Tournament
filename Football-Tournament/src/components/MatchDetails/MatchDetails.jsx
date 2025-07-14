@@ -16,7 +16,7 @@ export const MatchDetails = () => {
         const { ATeamID, BTeamID } = tempCurrentMatch;
 
         const allPlayersInMatch = playersMappedWithMatches[id];
-        console.log(allPlayersInMatch)
+        console.log(allPlayersInMatch, 'All players in match')
         const tempTeamsAndPositionsSchema = {
             [ATeamID]: {
                 "GK": [],
@@ -43,19 +43,20 @@ export const MatchDetails = () => {
 
         })
 
-        console.log(tempTeamsAndPositionsSchema, 'players in the match with their positions')
+        // console.log(tempTeamsAndPositionsSchema, 'players in the match with their positions')
 
         setCurrentMatch(state => tempCurrentMatch);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
-        console.log(Object.entries(teamsAndPositionsSchema))
 
     }, [id])
 
     return (
         <section className={styles.matchDetails}>
             <>
-                <h1>Match Details</h1>
                 <div className={styles.fieldsContainer}>
+                    <div className={styles.matchResult}>
+                        {currentMatch.Score}
+                    </div>
                     {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => {
                         return (
                             <div key={teamID} className={styles.field}>
