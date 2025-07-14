@@ -76,10 +76,21 @@ export const createPlayersToMatchesRelations = (
 		}
 
 		const currentPlayerId = currentPlayerRecord["PlayerID"];
+
+		// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
+		const playerDetails = playersData[currentPlayerId - 1];
+
+		let [, captainString ]=  playerDetails.FullName.split("(");
+		let isCaptain = false;
+		if(captainString) {
+			captainString = captainString.replace(')','')
+			isCaptain = true;
+		}
+
 		currentPlayerRecord = {
 			...currentPlayerRecord,
-			// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
-			playerDetails: playersData[currentPlayerId - 1],
+			playerDetails: {...playerDetails, isCaptain},
+
 
 		};
 
