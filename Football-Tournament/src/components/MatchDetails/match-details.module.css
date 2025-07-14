@@ -211,6 +211,27 @@
 	font-weight: bold;
 }
 
+.changeIconContainer {
+	position: absolute;
+	top: 20px;
+	left: 25px;
+	color: #001e28;
+	background-color: #fff;
+	border-radius: 50%;
+	width: 20px;
+	height: 18px;
+	
+}
+
 .playerName {
     text-align: center;
+}
+
+/* Players information from minutes to minutes section */
+.playersSection {
+
+}
+
+.playersContainer {
+	
 }

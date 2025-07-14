@@ -88,8 +88,17 @@ export const createPlayersToMatchesRelations = (
 			isCaptain = true;
 		}
 
+		let isStarterPlayerChanged = true;
+		const {fromMinutes, toMinutes} = currentPlayerRecord;
+		if(fromMinutes == '0') {
+			if(toMinutes == "NULL" || toMinutes == "90") {
+				isStarterPlayerChanged  = false;
+			}
+		}
+
 		currentPlayerRecord = {
 			...currentPlayerRecord,
+			isPlayerChanged: isStarterPlayerChanged,
 			playerDetails: {...playerDetails, isCaptain, FullName},
 
 

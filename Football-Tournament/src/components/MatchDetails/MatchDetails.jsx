@@ -2,12 +2,14 @@ import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
+import { BiTransfer } from "react-icons/bi";
 import styles from "./match-details.module.css"
 
 export const MatchDetails = () => {
     // const [playersRecords, setPlayersRecords] = [];
     const [currentMatch, setCurrentMatch] = useState({});
     const [teamsAndPositionsSchema, setTeamsAndPositionsSchema] = useState({});
+    const [allPlayersInMatch, setAllPlayersInMatch] = useState([]);
     const { matches, playersMappedWithMatches } = useContext(TournamentContext);
     const { id } = useParams();
 
@@ -16,7 +18,7 @@ export const MatchDetails = () => {
         const { ATeamID, BTeamID } = tempCurrentMatch;
 
         const allPlayersInMatch = playersMappedWithMatches[id];
-        console.log(allPlayersInMatch, 'All players in match')
+
         const tempTeamsAndPositionsSchema = {
             [ATeamID]: {
                 "GK": [],
@@ -33,7 +35,6 @@ export const MatchDetails = () => {
             }
         };
 
-
         allPlayersInMatch.forEach((currentPlayer) => {
             const currentPlayerPosition = currentPlayer.playerDetails.Position;
             const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
@@ -43,12 +44,14 @@ export const MatchDetails = () => {
 
         })
 
-        // console.log(tempTeamsAndPositionsSchema, 'players in the match with their positions')
-
         setCurrentMatch(state => tempCurrentMatch);
+        setAllPlayersInMatch(state => allPlayersInMatch)
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
     }, [id])
+    console.log(allPlayersInMatch, 'All players in match')
+    console.log(teamsAndPositionsSchema, 'players in the match with their positions')
+
 
     return (
         <section className={styles.matchDetails}>
@@ -92,7 +95,13 @@ export const MatchDetails = () => {
                                                                         currentPlayer.playerDetails.isCaptain &&
                                                                         <div className={styles.captainIcon}>C</div>
                                                                     }
+
                                                                     {currentPlayer.playerDetails.Position}
+
+                                                                    {
+                                                                        currentPlayer.isPlayerChanged &&
+                                                                        <div className={styles.changeIconContainer}><BiTransfer size={16} /></div>
+                                                                    }
                                                                 </div>
                                                                 <div>{currentPlayer.playerDetails.TeamNumber}</div>
                                                                 <div className={styles.playerName}>{currentPlayer.playerDetails.FullName}</div>
@@ -107,6 +116,13 @@ export const MatchDetails = () => {
                             </div>
                         )
                     })}
+                </div>
+                <div className={styles.playersSection}>
+                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => (
+                        <ul className={styles.playersContainer}>
+
+                        </ul>
+                    ))}
                 </div>
             </>
         </section>
