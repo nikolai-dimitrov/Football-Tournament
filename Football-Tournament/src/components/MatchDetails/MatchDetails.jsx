@@ -16,7 +16,7 @@ export const MatchDetails = () => {
         const { ATeamID, BTeamID } = tempCurrentMatch;
 
         const allPlayersInMatch = playersMappedWithMatches[id];
-
+        console.log(allPlayersInMatch)
         const tempTeamsAndPositionsSchema = {
             [ATeamID]: {
                 "GK": [],
@@ -37,7 +37,7 @@ export const MatchDetails = () => {
         allPlayersInMatch.forEach((currentPlayer) => {
             const currentPlayerPosition = currentPlayer.playerDetails.Position;
             const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
-        
+
             // Check if player already exist before adding him to the array
             tempTeamsAndPositionsSchema[currentPlayerTeamId][currentPlayerPosition].push(currentPlayer);
 
@@ -58,7 +58,7 @@ export const MatchDetails = () => {
                 <div className={styles.fieldsContainer}>
                     {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => {
                         return (
-                            <div key={index} className={styles.field}>
+                            <div key={teamID} className={styles.field}>
                                 {/* center */}
                                 <div className={styles.centerLine}></div>
                                 <div className={styles.centerCircle}></div>
@@ -79,14 +79,20 @@ export const MatchDetails = () => {
 
                                 {Object.entries(positionObject).map(([positionName, playersArray], index) => {
                                     return (
-                                        <div key={index} className={`${styles.positionLine} ${styles[positionName]}`}>
+                                        <div key={positionName} className={`${styles.positionLine} ${styles[positionName]}`}>
                                             {playersArray.map((currentPlayer) => {
                                                 return (
                                                     <>
                                                         {
                                                             currentPlayer.fromMinutes == '0' &&
                                                             <div className={styles.playerInformationContainer}>
-                                                                <div className={styles.playerPosition}>{currentPlayer.playerDetails.Position}</div>
+                                                                <div className={styles.playerPosition}>
+                                                                    {
+                                                                        currentPlayer.playerDetails.isCaptain &&
+                                                                        <div className={styles.captainIcon}>C</div>
+                                                                    }
+                                                                    {currentPlayer.playerDetails.Position}
+                                                                </div>
                                                                 <div>{currentPlayer.playerDetails.TeamNumber}</div>
                                                                 <div className={styles.playerName}>{currentPlayer.playerDetails.FullName}</div>
                                                             </div>

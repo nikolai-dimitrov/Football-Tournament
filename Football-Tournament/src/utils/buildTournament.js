@@ -76,21 +76,21 @@ export const createPlayersToMatchesRelations = (
 		}
 
 		const currentPlayerId = currentPlayerRecord["PlayerID"];
-
 		// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
 		const playerDetails = playersData[currentPlayerId - 1];
 
+		// Split string into two separated elements -> FullName and captain. Original string: Cristiano Ronaldo (captain)
+		// FullName: Cristiano Ronaldo, captainString: captain OR undefined if player is not captain
 		const [FullName, captainString ] =  playerDetails.FullName.split("(");
-
+		
 		let isCaptain = false;
 		if(captainString) {
 			isCaptain = true;
-			playerDetails.FullName = FullName;
 		}
 
 		currentPlayerRecord = {
 			...currentPlayerRecord,
-			playerDetails: {...playerDetails, isCaptain},
+			playerDetails: {...playerDetails, isCaptain, FullName},
 
 
 		};
@@ -98,6 +98,8 @@ export const createPlayersToMatchesRelations = (
 		playersRecordsToMatchesRelation[currentPlayerRecord.MatchID].push(
 			currentPlayerRecord
 		);
+
 	});
+
 	return playersRecordsToMatchesRelation;
 };
