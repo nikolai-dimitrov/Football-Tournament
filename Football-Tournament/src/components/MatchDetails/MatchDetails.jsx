@@ -3,19 +3,23 @@ import { useParams } from "react-router"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { BiTransfer } from "react-icons/bi";
+import { countryFlags } from "../../constants/countryFlags";
 import styles from "./match-details.module.css"
 
 export const MatchDetails = () => {
-    // const [playersRecords, setPlayersRecords] = [];
-    const [currentMatch, setCurrentMatch] = useState({});
+    const { id } = useParams();
+    const { teams, matches, playersMappedWithMatches } = useContext(TournamentContext);
+    const [countries, setCountries] = useState([]);
+    const [currentMatch, setCurrentMatch] = useState({}); // remove 
     const [teamsAndPositionsSchema, setTeamsAndPositionsSchema] = useState({});
     const [starterAndBenchPlayersSchema, setStarterAndBenchPlayersSchema] = useState({});
-    const { matches, playersMappedWithMatches } = useContext(TournamentContext);
-    const { id } = useParams();
 
     useEffect(() => {
         const tempCurrentMatch = matches.find((el) => el.ID == id);
         const { ATeamID, BTeamID } = tempCurrentMatch;
+
+        const ACountryName = teams.find((currentTeam) => currentTeam.ID == ATeamID).Name;
+        const BCountryName = teams.find((currentTeam) => currentTeam.ID == BTeamID).Name;
 
         const allPlayersInMatch = playersMappedWithMatches[id];
 
@@ -62,19 +66,29 @@ export const MatchDetails = () => {
 
         });
 
+        setCountries(state => [ACountryName, BCountryName]);
         setCurrentMatch(state => tempCurrentMatch);
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
     }, [id]);
-    console.log(Object.entries(starterAndBenchPlayersSchema), 'x')
+
+    const [hostCountryName, guestCountryName] = countries;
+    console.log(currentMatch)
     return (
         <section className={styles.matchDetails}>
             <>
+                <div className={styles.matchResultContainer}>
+                    <img src={countryFlags[hostCountryName]} alt="Flag Image" />
+                    <p>{hostCountryName}</p>
+
+                    <p>{currentMatch.Score}</p>
+
+                    <p>{guestCountryName}</p>
+                    <img src={countryFlags[guestCountryName]} alt="Flag Image" />
+
+                </div>
                 <div className={styles.fieldsContainer}>
-                    {/* <div className={styles.matchResult}>
-                        {currentMatch.Score}
-                    </div> */}
                     {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => (
 
                         <div key={teamID} className={styles.field}>

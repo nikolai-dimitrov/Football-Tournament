@@ -1,4 +1,6 @@
-.matchResult {
+.matchResultContainer {
+	display: flex;
+	gap: 20px;
 	font-size: 56px;
 	color: #fff;
 	margin-bottom: 40px;

@@ -7,7 +7,7 @@ export const TournamentContext = createContext();
 export const TournamentProvider = ({ children }) => {
     const [playersMappedWithTeams, setPlayersMappedWithTeams] = useState({});
     const [playersMappedWithMatches, setPlayersMappedWithMatches] = useState({});
-
+    const [teams, setTeams] = useState([]);
     const [matches, setMatches] = useState([]);
     const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState([]);
     const [matchesPlayedAfterGroupsSchema, setMatchesPlayedAfterGroupsSchema] = useState([]);
@@ -114,17 +114,19 @@ export const TournamentProvider = ({ children }) => {
             // Mapped MatchID:[{playerRecord}, {playerRecord}] where playerRecord is object with information matchId, playerId, fromMinutes, toMinutes and playerDetails: {} where playerDetails contains player information like: name position etc.
             const playersMatchesRelationsObject = createPlayersToMatchesRelations(playerRecordsData, playersData);
 
+            setTeams(teamsData);
             setMatches(matchesData)
             setPlayersMappedWithTeams(playersTeamsRelationsObject);
             setPlayersMappedWithMatches(playersMatchesRelationsObject);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
             setMatchesPlayedAfterGroupsSchema(tempSortedMatchesPlayedAfterGroupsSchema);
-
+            // console.log('INVOKE START APP')
         }).catch((error) => console.log(error));
 
     }, []);
 
     const values = {
+        teams,
         matches,
         playersMappedWithTeams,
         playersMappedWithMatches,
