@@ -8,6 +8,7 @@
 .fieldsContainer {
 	display: flex;
 	justify-content: space-around;
+	margin-bottom: 55px;
 }
 
 .field {
@@ -19,15 +20,15 @@
 }
 
 .field:nth-last-of-type(1) {
-    order:3
+	order: 3;
 }
 
 .field:nth-last-of-type(2) {
-    order: 1;
+	order: 1;
 }
 
 .matchResult {
-    order: 2;
+	order: 2;
 }
 
 .centerLine {
@@ -152,16 +153,15 @@
 	position: relative;
 	z-index: 10;
 	justify-content: space-around;
-    height: 97px;
+	height: 97px;
 }
 
 .GK {
-    top: 15px;
+	top: 15px;
 }
 
-
 .DF {
-    top: 35px;
+	top: 35px;
 }
 
 .MF {
@@ -180,8 +180,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-    gap: 5px;
-    color: #c6cccc;
+	gap: 5px;
+	color: #c6cccc;
 	/* width 70px OR 90px */
 	width: 70px;
 }
@@ -189,7 +189,7 @@
 .playerPosition {
 	position: relative;
 	color: #001e28;
-    background-color: #c6cccc;
+	background-color: #c6cccc;
 	border-radius: 100%;
 	padding: 5px;
 	width: 33px;
@@ -220,18 +220,79 @@
 	border-radius: 50%;
 	width: 20px;
 	height: 18px;
-	
 }
 
 .playerName {
-    text-align: center;
+	text-align: center;
 }
 
 /* Players information from minutes to minutes section */
 .playersSection {
-
+	display: flex;
+	justify-content: space-around;
 }
 
 .playersContainer {
-	
+	width: 570px;
+}
+
+.playersContainer ul {
+	margin-bottom: 40px;
+}
+
+.playersContainer ul h3 {
+	text-align: center;
+	padding: 20px;
+	border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.playersContainer ul h3,
+.playersContainer ul .subHeading {
+	background-color: #001e28;
+	color: #c6cccc;
+}
+
+.subHeading {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 20px;
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.subHeading p:nth-of-type(1) {
+	width: 35%;
+}
+
+.playerRecord {
+	display: flex;
+	padding: 20px;
+	justify-content: space-between;
+	background-color: #00141e;
+	color: #b1afaf;
+}
+
+.playerRecord:not(:last-child) {
+	border-bottom: 1px solid #000;
+}
+
+.playerRecord:hover {
+	cursor: pointer;
+	background-color: #001e28;
+	transform: translate3d(5px, -5px, 0px);
+	transition-duration: 0.4s;
+	border-bottom: unset;
+	box-shadow: #00232f -1px 1px, #00232f -2px 2px, #00232f -3px 3px,
+	#00232f -4px 4px, #00232f -5px 5px;
+}
+
+.playerNameWrapper {
+	display: flex;
+	gap: 10px;
+	width: 35%;
+}
+
+.playerNameWrapper div {
+	color: #fff;
 }
