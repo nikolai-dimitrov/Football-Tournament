@@ -137,7 +137,10 @@ export const MatchDetails = () => {
                                         <ul>
                                             <h3>{type.toUpperCase()}</h3>
                                             <div className={styles.subHeading}>
-                                                <p>Name</p>
+                                                <div className={styles.firstColumnContainer}>
+                                                    <p>No</p>
+                                                    <p>Name</p>
+                                                </div>
                                                 <p>In</p>
                                                 <p>Finish</p>
                                             </div>
@@ -145,6 +148,7 @@ export const MatchDetails = () => {
                                             {playersArray.map((currentPlayerRecord) => (
                                                 <li className={styles.playerRecord}>
                                                     <div className={styles.playerNameWrapper}>
+                                                        <p className={styles.playerNumber}>{currentPlayerRecord.playerDetails.TeamNumber}</p>
                                                         <p>{currentPlayerRecord.playerDetails.FullName}</p>
                                                         {(type == 'starters' && currentPlayerRecord.isPlayerChanged) && <div><BiTransfer size={16} /></div>}
                                                     </div>

@@ -261,8 +261,10 @@
 	font-weight: 600;
 }
 
-.subHeading p:nth-of-type(1) {
-	width: 35%;
+.subHeading .firstColumnContainer {
+	display: flex;
+	gap: 27px;
+	width: 51%;
 }
 
 .playerRecord {
@@ -288,11 +290,15 @@
 }
 
 .playerNameWrapper {
-	display: flex;
-	gap: 10px;
-	width: 35%;
+    display: flex;
+    gap: 31px;
+    width: 46%;
 }
 
 .playerNameWrapper div {
 	color: #fff;
+}
+
+.playerNameWrapper .playerNumber {
+	width: 20px;
 }
