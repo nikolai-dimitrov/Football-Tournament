@@ -10,9 +10,9 @@ export const MatchDetails = () => {
     const { id } = useParams();
     const { teams, matches, playersMappedWithMatches } = useContext(TournamentContext);
     const [countries, setCountries] = useState([]);
-    const [currentMatch, setCurrentMatch] = useState({}); // remove 
-    const [teamsAndPositionsSchema, setTeamsAndPositionsSchema] = useState({});
-    const [starterAndBenchPlayersSchema, setStarterAndBenchPlayersSchema] = useState({});
+    const [currentMatch, setCurrentMatch] = useState({});
+    const [teamsAndPositionsSchema, setTeamsAndPositionsSchema] = useState([]);
+    const [starterAndBenchPlayersSchema, setStarterAndBenchPlayersSchema] = useState([]);
 
     useEffect(() => {
         const tempCurrentMatch = matches.find((el) => el.ID == id);
@@ -27,58 +27,73 @@ export const MatchDetails = () => {
         const allPlayersInMatch = playersMappedWithMatches[id];
 
 
-        const tempTeamsAndPositionsSchema = {
-            [ATeamID]: {
+        const tempTeamsAndPositionsSchema = [
+            [ATeamID, {
                 "GK": [],
                 "DF": [],
                 "MF": [],
                 "FW": []
-            },
+            }],
 
-            [BTeamID]: {
+            [BTeamID, {
                 "GK": [],
                 "DF": [],
                 "MF": [],
                 "FW": []
-            }
-        };
+            }]
+        ];
 
-        const tempStarterAndBenchPlayersSchema = {
-            [ATeamID]: {
+        const tempStarterAndBenchPlayersSchema = [
+            [ATeamID, {
                 "starters": [],
                 "substitutes": [],
-            },
-            [BTeamID]: {
+            }],
+
+            [BTeamID, {
                 "starters": [],
                 "substitutes": [],
-            }
+            }]
 
-        }
+        ]
 
+        const [ATeamPositionsArray, BTeamPositionsArray] = tempTeamsAndPositionsSchema;
+        const [ATeamStartersBenchesArray, BTeamStartersBenchesArray] = tempStarterAndBenchPlayersSchema;
+
+        const ATeamPositionsObj = ATeamPositionsArray[1];
+        const BTeamPositionsObj = BTeamPositionsArray[1];
+
+        const ATeamStartersBenchesObj = ATeamStartersBenchesArray[1];
+        const BTeamStartersBenchesObj = BTeamStartersBenchesArray[1];
+
+        // Move in separate function.
         allPlayersInMatch.forEach((currentPlayer) => {
             const currentPlayerPosition = currentPlayer.playerDetails.Position;
             const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
 
-            // Check if player already exist before adding him to the array
-            tempTeamsAndPositionsSchema[currentPlayerTeamId][currentPlayerPosition].push(currentPlayer);
-
-            if (currentPlayer.fromMinutes == "0") {
-                tempStarterAndBenchPlayersSchema[currentPlayerTeamId]["starters"].push(currentPlayer)
+            if (currentPlayerTeamId == ATeamID) {
+                ATeamPositionsObj[currentPlayerPosition].push(currentPlayer);
+                if (currentPlayer.fromMinutes == "0") {
+                    ATeamStartersBenchesObj["starters"].push(currentPlayer)
+                } else {
+                    ATeamStartersBenchesObj["substitutes"].push(currentPlayer)
+                }
             } else {
-                tempStarterAndBenchPlayersSchema[currentPlayerTeamId]["substitutes"].push(currentPlayer)
+                BTeamPositionsObj[currentPlayerPosition].push(currentPlayer);
+                if (currentPlayer.fromMinutes == "0") {
+                    BTeamStartersBenchesObj["starters"].push(currentPlayer)
+                } else {
+                    BTeamStartersBenchesObj["substitutes"].push(currentPlayer)
+                }
             }
 
         });
 
         setCountries(state => [ACountryName, BCountryName]);
-        setCurrentMatch(state => ({...tempCurrentMatch, Score:formattedScore}));
+        setCurrentMatch(state => ({ ...tempCurrentMatch, Score: formattedScore }));
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
     }, [id]);
-    console.log(currentMatch);
-    console.log(teamsAndPositionsSchema);
-    console.log(Object.entries(teamsAndPositionsSchema));
 
     return (
         <section className={styles.matchDetails}>
@@ -99,7 +114,7 @@ export const MatchDetails = () => {
                     <p className={styles.score} >{currentMatch.Score}</p>
                 </div>
                 <div className={styles.fieldsContainer}>
-                    {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => (
+                    {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
 
                         <div key={teamID} className={styles.field}>
                             {/* center */}
@@ -152,7 +167,7 @@ export const MatchDetails = () => {
                     ))}
                 </div>
                 <div className={styles.playersSection}>
-                    {Object.entries(starterAndBenchPlayersSchema).map(([teamID, substitutesAndStartersArray], index) => (
+                    {starterAndBenchPlayersSchema.map(([teamID, substitutesAndStartersArray], index) => (
                         <div key={index} className={styles.playersContainer}>
                             {/* type: starter OR substitutes, playersArray: array with objects which is corresponding to starter or substitute type for the current team and match */}
                             {Object.entries(substitutesAndStartersArray).map(([type, playersArray], index) => (
