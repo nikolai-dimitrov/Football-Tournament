@@ -16,12 +16,16 @@ export const MatchDetails = () => {
 
     useEffect(() => {
         const tempCurrentMatch = matches.find((el) => el.ID == id);
+        const formattedScore = tempCurrentMatch.Score.replace("-", " : ");
+
+
         const { ATeamID, BTeamID } = tempCurrentMatch;
 
         const ACountryName = teams.find((currentTeam) => currentTeam.ID == ATeamID).Name;
         const BCountryName = teams.find((currentTeam) => currentTeam.ID == BTeamID).Name;
 
         const allPlayersInMatch = playersMappedWithMatches[id];
+
 
         const tempTeamsAndPositionsSchema = {
             [ATeamID]: {
@@ -67,26 +71,32 @@ export const MatchDetails = () => {
         });
 
         setCountries(state => [ACountryName, BCountryName]);
-        setCurrentMatch(state => tempCurrentMatch);
+        setCurrentMatch(state => ({...tempCurrentMatch, Score:formattedScore}));
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
     }, [id]);
+    console.log(currentMatch);
+    console.log(teamsAndPositionsSchema);
+    console.log(Object.entries(teamsAndPositionsSchema));
 
-    const [hostCountryName, guestCountryName] = countries;
-    console.log(currentMatch)
     return (
         <section className={styles.matchDetails}>
             <>
                 <div className={styles.matchResultContainer}>
-                    <img src={countryFlags[hostCountryName]} alt="Flag Image" />
-                    <p>{hostCountryName}</p>
+                    {countries.map((countryName) => (
+                        <div>
+                            {countryName == 'Scotland' ?
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" width="64px" height="44px" alt="Flag Image" />
+                                :
+                                <img src={countryFlags[countryName]} alt="Flag Image" />
 
-                    <p>{currentMatch.Score}</p>
+                            }
+                            <p >{countryName}</p>
+                        </div>
 
-                    <p>{guestCountryName}</p>
-                    <img src={countryFlags[guestCountryName]} alt="Flag Image" />
-
+                    ))}
+                    <p className={styles.score} >{currentMatch.Score}</p>
                 </div>
                 <div className={styles.fieldsContainer}>
                     {Object.entries(teamsAndPositionsSchema).map(([teamID, positionObject], index) => (
