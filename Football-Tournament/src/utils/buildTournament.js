@@ -1,3 +1,28 @@
+const getCaptainStatusAndFullName = (playerDetails) => {
+	// Split string into two separated elements -> FullName and captain. Original string: Cristiano Ronaldo (captain)
+	// FullName: Cristiano Ronaldo, captainString: captain OR undefined if player is not captain
+	const [FullName, captainString] = playerDetails.FullName.split("(");
+
+	let isCaptain = false;
+	if (captainString) {
+		isCaptain = true;
+	}
+
+	return [isCaptain, FullName];
+};
+
+const isStarterPlayerChanged = (currentPlayerRecord) => {
+	let isStarterPlayerChanged = true;
+	const { fromMinutes, toMinutes } = currentPlayerRecord;
+	if (fromMinutes == "0") {
+		if (toMinutes == "NULL" || toMinutes == "90") {
+			isStarterPlayerChanged = false;
+		}
+	}
+
+	return isStarterPlayerChanged;
+};
+
 // Create matrix which represent the structure of matches after group stage. Every array contains match objects represents the state of tournament like round of 8 , round of 4 round of 2 and final round.
 export const createTournamentRoundsMatrix = (
 	arrayWithRowsLength,
@@ -79,35 +104,18 @@ export const createPlayersToMatchesRelations = (
 		// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
 		const playerDetails = playersData[currentPlayerId - 1];
 
-		// Split string into two separated elements -> FullName and captain. Original string: Cristiano Ronaldo (captain)
-		// FullName: Cristiano Ronaldo, captainString: captain OR undefined if player is not captain
-		const [FullName, captainString ] =  playerDetails.FullName.split("(");
-		
-		let isCaptain = false;
-		if(captainString) {
-			isCaptain = true;
-		}
-
-		let isStarterPlayerChanged = true;
-		const {fromMinutes, toMinutes} = currentPlayerRecord;
-		if(fromMinutes == '0') {
-			if(toMinutes == "NULL" || toMinutes == "90") {
-				isStarterPlayerChanged  = false;
-			}
-		}
+		const [isCaptain, FullName] = getCaptainStatusAndFullName(playerDetails);
+		const isPlayerChanged = isStarterPlayerChanged(currentPlayerRecord);
 
 		currentPlayerRecord = {
 			...currentPlayerRecord,
-			isPlayerChanged: isStarterPlayerChanged,
-			playerDetails: {...playerDetails, isCaptain, FullName},
-
-
+			isPlayerChanged,
+			playerDetails: { ...playerDetails, isCaptain, FullName },
 		};
 
 		playersRecordsToMatchesRelation[currentPlayerRecord.MatchID].push(
 			currentPlayerRecord
 		);
-
 	});
 
 	return playersRecordsToMatchesRelation;
