@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import { csvFileProcessor } from "../services/processCsvService";
 
-import { createTournamentRoundsMatrix, convertMatrixToSortedArray, createPlayersToTeamsRelations, createPlayersToMatchesRelations } from "../utils/buildTournament";
+import { createTournamentRoundsMatrix, convertMatrixToSortedArray, createPlayersToTeamsRelations, createPlayersToMatchesRelations, getTeamWinner } from "../utils/buildTournament";
 
 export const TournamentContext = createContext();
 export const TournamentProvider = ({ children }) => {
@@ -44,28 +44,8 @@ export const TournamentProvider = ({ children }) => {
                 const currentMatchScore = currentMatch.Score;
 
                 const [teamAscore, teamBscore] = currentMatchScore.split('-');
-                let teamWinner = null;
 
-                if (teamAscore.length > 1) {
-                    // Get scored penalties if match finishes with equal result
-                    const teamApenaltyScore = teamAscore[2];
-                    const teamBpenaltyScore = teamBscore[2];
-
-                    if (Number(teamApenaltyScore) > Number(teamBpenaltyScore)) {
-                        teamWinner = ATeamName;
-                    }
-                    else if (Number(teamApenaltyScore) < Number(teamBpenaltyScore)) {
-                        teamWinner = BTeamName;
-                    }
-
-                } else {
-                    if (Number(teamAscore) > Number(teamBscore)) {
-                        teamWinner = ATeamName;
-                    }
-                    else if (Number(teamAscore) < Number(teamBscore)) {
-                        teamWinner = BTeamName;
-                    }
-                }
+                const teamWinner = getTeamWinner(teamAscore, teamBscore, ATeamName, BTeamName);
 
                 const tempExtendedMatchObject = {
                     ...currentMatch,
@@ -73,7 +53,7 @@ export const TournamentProvider = ({ children }) => {
                     BTeamName,
                     teamAscore,
                     teamBscore,
-                    teamWinner
+                    teamWinner,
                 }
 
                 if (currentMatchDate <= groupStageFinalDate) {

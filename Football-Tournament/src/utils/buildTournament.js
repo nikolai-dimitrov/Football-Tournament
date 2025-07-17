@@ -23,6 +23,33 @@ const isStarterPlayerChanged = (currentPlayerRecord) => {
 	return isStarterPlayerChanged;
 };
 
+export const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
+	let teamWinner = null;
+
+	if (teamAscore.length > 1) {
+		// Get scored penalties if match finishes with equal result
+		const teamApenaltyScore = teamAscore[2];
+		const teamBpenaltyScore = teamBscore[2];
+
+		if (Number(teamApenaltyScore) > Number(teamBpenaltyScore)) {
+			teamWinner = ATeamName;
+		}
+		else if (Number(teamApenaltyScore) < Number(teamBpenaltyScore)) {
+			teamWinner = BTeamName;
+		}
+
+	} else {
+		if (Number(teamAscore) > Number(teamBscore)) {
+			teamWinner = ATeamName;
+		}
+		else if (Number(teamAscore) < Number(teamBscore)) {
+			teamWinner = BTeamName;
+		}
+	}
+
+	return teamWinner;
+}
+
 // Create matrix which represent the structure of matches after group stage. Every array contains match objects represents the state of tournament like round of 8 , round of 4 round of 2 and final round.
 export const createTournamentRoundsMatrix = (
 	arrayWithRowsLength,
