@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router"
-import { color, motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { TeamLines } from "./TeamLines/TeamLines";
@@ -106,65 +106,78 @@ export const MatchDetails = () => {
 
     return (
         <section className={styles.matchDetails}>
-        {
-            isLoading?
-                <div className = {styles.loadingLayoutContainer
-        } >
-            <LoadingAnimation />
-                </div >
-                :
-<>
-    <div className={styles.matchResultContainer}>
-        {countries.map((countryName) => (
-            <div key={countryName}>
-                {countryName == 'Scotland' ?
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" width="64px" height="44px" alt="Flag Image" />
-                    :
-                    <img src={countryFlags[countryName]} alt="Flag Image" />
+            <AnimatePresence mode="wait">
+                {
+                    isLoading ?
+                        <motion.div className={styles.loadingLayoutContainer}
+                            key="loadingLayoutContainer"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
 
+                        >
+                            <LoadingAnimation />
+                        </motion.div >
+                        :
+                        <motion.div
+                        key="contentContainer"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.7 }}
+                        >
+                            <div className={styles.matchResultContainer}>
+                                {countries.map((countryName) => (
+                                    <div key={countryName}>
+                                        {countryName == 'Scotland' ?
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" width="64px" height="44px" alt="Flag Image" />
+                                            :
+                                            <img src={countryFlags[countryName]} alt="Flag Image" />
+
+                                        }
+                                        <p >{countryName}</p>
+                                    </div>
+
+                                ))}
+                                <p className={styles.score} >{currentMatch.Score}</p>
+                            </div>
+                            <div className={styles.fieldsContainer}>
+                                {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
+
+                                    <div key={teamID} className={styles.field}>
+                                        {/* center */}
+                                        <div className={styles.centerLine}></div>
+                                        <div className={styles.centerCircle}></div>
+
+                                        {/* bottom */}
+                                        <div className={styles.penaltyFieldBottom}></div>
+                                        <div className={styles.goalTargetFieldBottom}></div>
+                                        <div className={styles.goalTargetBottom}></div>
+
+                                        {/* top */}
+                                        <div className={styles.penaltyFieldTop}></div>
+                                        <div className={styles.goalTargetFieldTop}></div>
+                                        <div className={styles.goalTargetTop}></div>
+
+                                        {/* penalty half circles */}
+                                        <div className={styles.penaltyArcBottom}></div>
+                                        <div className={styles.penaltyArcTop}></div>
+
+                                        {Object.entries(positionObject).map(([positionName, playersArray]) => (
+                                            <TeamLines key={`${teamID}-${positionName}`} positionName={positionName} playersArray={playersArray} />
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={styles.playersSection}>
+                                {starterAndBenchPlayersSchema.map(([teamID, substitutesAndStartersObj], index) => (
+                                    <PlayersInformationTable key={teamID} substitutesAndStartersObj={substitutesAndStartersObj} teamId={teamID} />
+                                ))}
+                            </div>
+                        </motion.div>
                 }
-                <p >{countryName}</p>
-            </div>
-
-        ))}
-        <p className={styles.score} >{currentMatch.Score}</p>
-    </div>
-    <div className={styles.fieldsContainer}>
-        {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
-
-            <div key={teamID} className={styles.field}>
-                {/* center */}
-                <div className={styles.centerLine}></div>
-                <div className={styles.centerCircle}></div>
-
-                {/* bottom */}
-                <div className={styles.penaltyFieldBottom}></div>
-                <div className={styles.goalTargetFieldBottom}></div>
-                <div className={styles.goalTargetBottom}></div>
-
-                {/* top */}
-                <div className={styles.penaltyFieldTop}></div>
-                <div className={styles.goalTargetFieldTop}></div>
-                <div className={styles.goalTargetTop}></div>
-
-                {/* penalty half circles */}
-                <div className={styles.penaltyArcBottom}></div>
-                <div className={styles.penaltyArcTop}></div>
-
-                {Object.entries(positionObject).map(([positionName, playersArray]) => (
-                    <TeamLines key={`${teamID}-${positionName}`} positionName={positionName} playersArray={playersArray} />
-                ))}
-            </div>
-        ))}
-    </div>
-    <div className={styles.playersSection}>
-        {starterAndBenchPlayersSchema.map(([teamID, substitutesAndStartersObj], index) => (
-            <PlayersInformationTable key={teamID} substitutesAndStartersObj={substitutesAndStartersObj} teamId={teamID} />
-        ))}
-    </div>
-</>
-            }
-
+            </AnimatePresence>
         </section >
     )
 }
