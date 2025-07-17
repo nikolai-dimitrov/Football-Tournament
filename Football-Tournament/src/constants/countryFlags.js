@@ -7,7 +7,7 @@ export const countryFlags = {
 	Croatia: "https://flagsapi.com/HR/flat/64.png",
 	Italy: "https://flagsapi.com/IT/flat/64.png",
 	Albania: "https://flagsapi.com/AL/flat/64.png",
-	Slovenia: "https://flagsapi.com/Sl/flat/64.png",
+	Slovenia: "https://flagsapi.com/SI/flat/64.png",
 	Denmark: "https://flagsapi.com/DK/flat/64.png",
 	Serbia: "https://flagsapi.com/RS/flat/64.png",
 	England: "https://flagsapi.com/GB/flat/64.png",

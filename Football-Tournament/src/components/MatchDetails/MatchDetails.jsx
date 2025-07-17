@@ -131,7 +131,7 @@ export const MatchDetails = () => {
                                 {countries.map((countryName) => (
                                     <div key={countryName}>
                                         {countryName == 'Scotland' ?
-                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" width="64px" height="44px" alt="Flag Image" />
+                                            <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
                                             :
                                             <img src={countryFlags[countryName]} alt="Flag Image" />
 

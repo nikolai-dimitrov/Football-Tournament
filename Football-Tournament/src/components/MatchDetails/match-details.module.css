@@ -25,6 +25,11 @@
 
 }
 
+.matchResultContainer .scotlandFlag {
+	width: 64px;
+	height: 40px;
+}
+
 .matchResultContainer div:nth-of-type(1) {
 	order: 1;
 }
