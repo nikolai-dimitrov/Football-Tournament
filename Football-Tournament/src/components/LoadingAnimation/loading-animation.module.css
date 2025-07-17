@@ -1,0 +1,17 @@
+.animationContainer {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.animationContainer span {
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #fff;
+}

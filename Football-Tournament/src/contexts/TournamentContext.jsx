@@ -102,13 +102,18 @@ export const TournamentProvider = ({ children }) => {
             setPlayersMappedWithMatches(playersMatchesRelationsObject);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
             setMatchesPlayedAfterGroupsSchema(tempSortedMatchesPlayedAfterGroupsSchema);
-            // setIsLoading(false);
 
         }).catch((error) => {
+            // Show error modal.
             console.log(error);
             setIsLoading(false)
         });
+        
+        const loadingTimeoutId = setTimeout(() => (
+            setIsLoading(false)
+        ), 500);
 
+        return () => clearTimeout(loadingTimeoutId);
     }, []);
 
     const values = {
