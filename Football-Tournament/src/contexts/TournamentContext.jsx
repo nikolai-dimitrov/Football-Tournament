@@ -12,6 +12,8 @@ export const TournamentProvider = ({ children }) => {
     const [matchesGroupStageSchema, setMatchesGroupStageSchema] = useState([]);
     const [matchesPlayedAfterGroupsSchema, setMatchesPlayedAfterGroupsSchema] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         Promise.all([
             csvFileProcessor.getMatches(),
@@ -100,8 +102,12 @@ export const TournamentProvider = ({ children }) => {
             setPlayersMappedWithMatches(playersMatchesRelationsObject);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
             setMatchesPlayedAfterGroupsSchema(tempSortedMatchesPlayedAfterGroupsSchema);
-            // console.log('INVOKE START APP')
-        }).catch((error) => console.log(error));
+            // setIsLoading(false);
+
+        }).catch((error) => {
+            console.log(error);
+            setIsLoading(false)
+        });
 
     }, []);
 
@@ -112,6 +118,7 @@ export const TournamentProvider = ({ children }) => {
         playersMappedWithMatches,
         matchesGroupStageSchema,
         matchesPlayedAfterGroupsSchema,
+        isLoading,
 
     };
 

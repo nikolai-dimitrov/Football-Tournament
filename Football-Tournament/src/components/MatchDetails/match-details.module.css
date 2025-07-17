@@ -1,3 +1,7 @@
+.loadingLayoutContainer {
+	height: calc(100vh - 184px);
+}
+
 /* Match Result */
 .matchResultContainer {
 	display: flex;
