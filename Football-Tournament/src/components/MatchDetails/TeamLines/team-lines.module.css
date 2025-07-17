@@ -1,0 +1,78 @@
+/* Players' Positions */
+.positionLine {
+	display: flex;
+	position: relative;
+	z-index: 10;
+	justify-content: space-around;
+	height: 97px;
+}
+
+.GK {
+	top: 15px;
+}
+
+.DF {
+	top: 35px;
+}
+
+.MF {
+	top: calc(50% - 210px);
+}
+
+.FW {
+	top: calc(700px - 390px);
+}
+
+.positionLine.GK .playerPosition {
+	margin-bottom: 10px;
+}
+
+.playerInformationContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+	color: #c6cccc;
+	/* width 70px OR 90px */
+	width: 70px;
+}
+
+.playerPosition {
+	position: relative;
+	color: #001e28;
+	background-color: #c6cccc;
+	border-radius: 100%;
+	padding: 5px;
+	width: 33px;
+	height: 33px;
+	text-align: center;
+	line-height: 1.5;
+}
+
+.captainIcon {
+	position: absolute;
+	top: -12px;
+	right: -5px;
+	width: 20px;
+	height: 20px;
+	color: #001e28;
+	background-color: #fff;
+	border-radius: 50%;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.changeIconContainer {
+	position: absolute;
+	top: 20px;
+	left: 25px;
+	color: #001e28;
+	background-color: #fff;
+	border-radius: 50%;
+	width: 20px;
+	height: 18px;
+}
+
+.playerName {
+	text-align: center;
+}
