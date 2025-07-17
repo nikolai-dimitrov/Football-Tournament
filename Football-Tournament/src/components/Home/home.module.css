@@ -54,35 +54,6 @@
 	padding-top: 10px;
 }
 
-.scoreInformationContainer {
-	display: flex;
-	flex-direction: column;
-	gap: 3px;
-	width: 100%;
-}
-
-.scoreInformationContainer .scotlandFlag {
-	width: 20px;
-	height: 10px;
-}
-
-.scoreInformationContainer div {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.scoreInformationContainer img {
-	width: 20px;
-	height: 20px;
-	margin-right: 5px;
-}
-
-.winnerHighlight {
-	color: #fff;
-}
-
 /* Section after the group stage */
 .matchBracketsContainer {
 	display: flex;

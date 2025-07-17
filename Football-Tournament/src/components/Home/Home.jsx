@@ -3,6 +3,8 @@ import { Link } from "react-router"
 import { countryFlags } from "../../constants/countryFlags"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
+import { Match } from "./Match/Match"
+
 import styles from './home.module.css'
 
 export const Home = () => {
@@ -31,32 +33,7 @@ export const Home = () => {
                                             to={`/match/details/${currentMatch.ID}`}
                                         >
                                             <li className={styles.matchContainer}>
-                                                <p>{currentMatch.Date}</p>
-                                                <div className={styles.scoreInformationContainer}>
-                                                    <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
-                                                        <div>
-                                                            {currentMatch.ATeamName == 'Scotland' ?
-                                                                <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
-                                                                :
-                                                                <img src={countryFlags[currentMatch.ATeamName]} alt="Flag Image" />
-                                                            }
-                                                            <p>{currentMatch.ATeamName}</p>
-
-                                                        </div>
-                                                        <p>{currentMatch.teamAscore}</p>
-                                                    </div>
-                                                    <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
-                                                        <div>
-                                                            {currentMatch.BTeamName == 'Scotland' ?
-                                                                <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
-                                                                :
-                                                                <img src={countryFlags[currentMatch.BTeamName]} alt="Flag Image" />
-                                                            }
-                                                            <p>{currentMatch.BTeamName}</p>
-                                                        </div>
-                                                        <p>{currentMatch.teamBscore}</p>
-                                                    </div>
-                                                </div>
+                                                <Match currentMatch={currentMatch} />
                                             </li>
                                         </Link>
                                     )
@@ -78,34 +55,7 @@ export const Home = () => {
                                 >
                                     <li className={matchIndex % 2 === 1 ? `${styles.matchBracket} ${styles.even}` : `${styles.matchBracket}`}>
                                         <div className={styles.connector}></div>
-                                        <p>{currentMatch.Date}</p>
-                                        <div className={styles.scoreInformationContainer}>
-                                            <div className={currentMatch.teamWinner == currentMatch.ATeamName ? styles.winnerHighlight : ''}>
-                                                <div>
-                                                    {currentMatch.ATeamName == 'Scotland' ?
-                                                        <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
-                                                        :
-                                                        <img src={countryFlags[currentMatch.ATeamName]} alt="Flag Image" />
-
-                                                    }
-                                                    <p>{currentMatch.ATeamName}</p>
-                                                </div>
-                                                <p>{currentMatch.teamAscore}</p>
-                                            </div>
-                                            <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
-                                                <div>
-                                                    {currentMatch.BTeamName == 'Scotland' ?
-                                                        <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
-                                                        :
-                                                        <img src={countryFlags[currentMatch.BTeamName]} alt="Flag Image" />
-
-                                                    }
-                                                    <p>{currentMatch.BTeamName}</p>
-                                                </div>
-                                                <p>{currentMatch.teamBscore}</p>
-                                            </div>
-
-                                        </div>
+                                        <Match currentMatch={currentMatch} />
                                     </li>
                                 </Link>
                             ))}
