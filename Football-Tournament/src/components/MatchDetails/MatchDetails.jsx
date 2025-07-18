@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams, Link } from "react-router"
 import { AnimatePresence, motion } from "framer-motion"
+import { Tooltip } from 'react-tooltip'
 import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { TeamLines } from "./TeamLines/TeamLines";
@@ -147,8 +148,15 @@ export const MatchDetails = () => {
 
                                     <div key={teamID} className={styles.field}>
                                         <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}`}>
-                                            <IoInformationSharp size={34} />
+                                            <div data-tooltip-id="my-tooltip-1">
+                                                <IoInformationSharp size={34} />
+                                            </div>
                                         </Link>
+                                        <Tooltip
+                                            id="my-tooltip-1"
+                                            place="top"
+                                            content="Team Details"
+                                        />
                                         {/* center */}
                                         <div className={styles.centerLine}></div>
                                         <div className={styles.centerCircle}></div>
