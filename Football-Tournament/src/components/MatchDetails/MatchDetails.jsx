@@ -5,7 +5,6 @@ import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { TeamLines } from "./TeamLines/TeamLines";
 import { PlayersInformationTable } from "./PlayersInformationTable/PlayersInformationTable";
-import { FadeTransition } from "../FadeTransition/FadeTransition";
 
 import { countryFlags } from "../../constants/countryFlags";
 import styles from "./match-details.module.css"

@@ -7,7 +7,6 @@ import { MatchDetails } from './components/MatchDetails/MatchDetails'
 import { Footer } from './components/Footer/Footer'
 
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation'
-import { AnimatePresence } from 'framer-motion'
 
 
 function App() {
