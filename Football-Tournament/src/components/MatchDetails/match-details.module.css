@@ -10,19 +10,17 @@
 	color: #c6cccc;
 	background: #001e28;
 	font-size: 46px;
-    border-radius: 8px;
+	border-radius: 8px;
 	text-align: center;
-    max-width: 1370px;
-    margin: 0px auto 65px auto;
-    padding: 10px 20px;
-	
+	max-width: 1370px;
+	margin: 0px auto 65px auto;
+	padding: 10px 20px;
 }
 
 .matchResultContainer div {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-
 }
 
 .matchResultContainer .scotlandFlag {
@@ -47,8 +45,7 @@
 .teamInformationIconContainer {
 	position: absolute;
 	top: -40px;
-	color: #18acb6,;
-
+	color: #18acb6;
 }
 
 .teamInformationIconContainer:hover {
