@@ -44,6 +44,17 @@
 }
 
 /* Fields */
+.teamInformationIconContainer {
+	position: absolute;
+	top: -40px;
+	color: #18acb6,;
+
+}
+
+.teamInformationIconContainer:hover {
+	scale: 1.3;
+}
+
 .fieldsContainer {
 	display: flex;
 	justify-content: space-around;

@@ -33,7 +33,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="match/details/:id" element={<MatchDetails />} />
-                  {/* <Route path="team-details/:id" element={<Home />} /> */}
+                  {/* <Route path="team/details/:id" element={<TeamDetails />} /> */}
                 </Routes>
               </TournamentProvider>
             </main>

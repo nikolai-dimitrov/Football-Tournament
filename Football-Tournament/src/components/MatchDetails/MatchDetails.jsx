@@ -1,14 +1,16 @@
 import { useEffect, useState, useContext } from "react"
-import { useParams } from "react-router"
+import { useParams, Link } from "react-router"
 import { AnimatePresence, motion } from "framer-motion"
 import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { TeamLines } from "./TeamLines/TeamLines";
 import { PlayersInformationTable } from "./PlayersInformationTable/PlayersInformationTable";
+import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
+
+import { IoInformationSharp } from "react-icons/io5";
 
 import { countryFlags } from "../../constants/countryFlags";
 import styles from "./match-details.module.css"
-import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
 
 export const MatchDetails = () => {
     const { id } = useParams();
@@ -137,7 +139,6 @@ export const MatchDetails = () => {
                                         }
                                         <p >{countryName}</p>
                                     </div>
-
                                 ))}
                                 <p className={styles.score} >{currentMatch.Score}</p>
                             </div>
@@ -145,6 +146,9 @@ export const MatchDetails = () => {
                                 {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
 
                                     <div key={teamID} className={styles.field}>
+                                        <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}`}>
+                                            <IoInformationSharp size={34} />
+                                        </Link>
                                         {/* center */}
                                         <div className={styles.centerLine}></div>
                                         <div className={styles.centerCircle}></div>
