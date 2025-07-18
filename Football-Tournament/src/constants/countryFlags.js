@@ -18,7 +18,7 @@ export const countryFlags = {
 	Belgium: "https://flagsapi.com/BE/flat/64.png",
 	Slovakia: "https://flagsapi.com/SK/flat/64.png",
 	Romania: "https://flagsapi.com/RO/flat/64.png",
-	Ukraine: "https://flagsapi.com/UK/flat/64.png",
+	Ukraine: "https://flagsapi.com/UA/flat/64.png",
 	Turkey: "https://flagsapi.com/TR/flat/64.png",
 	Georgia: "https://flagsapi.com/GE/flat/64.png",
 	Portugal: "https://flagsapi.com/PT/flat/64.png",
