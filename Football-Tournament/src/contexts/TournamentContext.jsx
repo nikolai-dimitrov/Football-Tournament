@@ -97,7 +97,7 @@ export const TournamentProvider = ({ children }) => {
             const playersMatchesRelationsObject = createPlayersToMatchesRelations(playerRecordsData, playersData);
 
             setTeams(teamsData);
-            setMatches(matchesData)
+            setMatches(matchesData);
             setPlayersMappedWithTeams(playersTeamsRelationsObject);
             setPlayersMappedWithMatches(playersMatchesRelationsObject);
             setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
