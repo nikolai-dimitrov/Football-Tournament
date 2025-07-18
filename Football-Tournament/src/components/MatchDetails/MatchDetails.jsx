@@ -5,8 +5,8 @@ import { TournamentContext } from "../../contexts/TournamentContext"
 
 import { TeamLines } from "./TeamLines/TeamLines";
 import { PlayersInformationTable } from "./PlayersInformationTable/PlayersInformationTable";
+import { FadeTransition } from "../FadeTransition/FadeTransition";
 
-import { BiTransfer } from "react-icons/bi";
 import { countryFlags } from "../../constants/countryFlags";
 import styles from "./match-details.module.css"
 import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
@@ -121,11 +121,11 @@ export const MatchDetails = () => {
                         </motion.div >
                         :
                         <motion.div
-                        key="contentContainer"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.7 }}
+                            key="contentContainer"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.7 }}
                         >
                             <div className={styles.matchResultContainer}>
                                 {countries.map((countryName) => (
