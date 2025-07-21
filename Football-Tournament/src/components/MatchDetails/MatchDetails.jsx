@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams, Link } from "react-router"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { Tooltip } from 'react-tooltip'
 import { TournamentContext } from "../../contexts/TournamentContext"
 
+import { FadeTransition } from "../FadeTransition/FadeTransition"
 import { TeamLines } from "./TeamLines/TeamLines";
 import { PlayersInformationTable } from "./PlayersInformationTable/PlayersInformationTable";
 import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
@@ -111,22 +112,19 @@ export const MatchDetails = () => {
             <AnimatePresence mode="wait">
                 {
                     isLoading ?
-                        <motion.div className={styles.loadingLayoutContainer}
-                            key="loadingLayoutContainer"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-
+                        <FadeTransition
+                            className={styles.loadingLayoutContainer}
+                            keyString="loadingLayoutContainer"
+                            durationSeconds={0.3}
+                            isInAnimatePresence={true}
                         >
                             <LoadingAnimation />
-                        </motion.div >
+                        </FadeTransition>
                         :
-                        <motion.div
-                            key="contentContainer"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.7 }}
+                        <FadeTransition
+                            keyString="contentContainer"
+                            durationSeconds={0.7}
+                            isInAnimatePresence={true}
                         >
                             <div className={styles.matchResultContainer}>
                                 {countries.map((countryName) => (
@@ -185,7 +183,7 @@ export const MatchDetails = () => {
                                     <PlayersInformationTable key={teamID} substitutesAndStartersObj={substitutesAndStartersObj} teamId={teamID} />
                                 ))}
                             </div>
-                        </motion.div>
+                        </FadeTransition>
                 }
             </AnimatePresence>
         </section >

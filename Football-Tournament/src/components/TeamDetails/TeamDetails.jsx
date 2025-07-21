@@ -1,10 +1,13 @@
-import { useState, useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { TournamentContext } from '../../contexts/TournamentContext'
-import styles from './team-details.module.css'
+
+import { FadeTransition } from '../FadeTransition/FadeTransition'
 import { LoadingAnimation } from '../LoadingAnimation/LoadingAnimation'
+
+import styles from './team-details.module.css'
 export const TeamDetails = () => {
     const { playersMappedWithTeams, isLoading } = useContext(TournamentContext);
     const { id } = useParams();
@@ -19,21 +22,19 @@ export const TeamDetails = () => {
         <div className={styles.teamDetails}>
             <AnimatePresence mode="wait">
                 {isLoading ?
-                    <motion.div className={styles.loadingLayoutContainer}
-                        key="loadingLayoutContainer"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                    <FadeTransition
+                        className={styles.loadingLayoutContainer}
+                        keyString="loadingLayoutContainer"
+                        durationSeconds={0.3}
+                        isInAnimatePresence={true}
                     >
                         <LoadingAnimation />
-                    </motion.div >
+                    </FadeTransition >
                     :
-                    <motion.div
-                        key="contentContainer"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.7 }}
+                    <FadeTransition
+                        keyString="contentContainer"
+                        isInAnimatePresence={false}
+                        durationSeconds={0.7}
                     >
                         <ul className={styles.teamDetailsTable}>
                             <div className={styles.titlesContainer}>
@@ -59,7 +60,7 @@ export const TeamDetails = () => {
                                 </li>
                             ))}
                         </ul>
-                    </motion.div>
+                    </FadeTransition>
                 }
             </AnimatePresence>
         </div>

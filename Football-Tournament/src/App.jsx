@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
+
+import { FadeTransition } from './components/FadeTransition/FadeTransition'
 import { TournamentProvider } from './contexts/TournamentContext'
 import { Navigation } from './components/Navigation/Navigation'
 import { Home } from './components/Home/Home'
@@ -25,18 +27,20 @@ function App() {
         {
           showOpeningAnimation
             ?
-            <motion.div
-              key="loadingLayoutContainer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+            <FadeTransition
+              keyString="loadingLayoutContainer"
+              durationSeconds={0.3}
+              isInAnimatePresence={true}
             >
               <OpeningAnimation />
 
-            </motion.div >
+            </FadeTransition >
             :
-            <>
+            <FadeTransition
+              keyString="contentContainer"
+              durationSeconds={0.3}
+              isInAnimatePresence={true}
+            >
               <header>
                 <Navigation />
               </header>
@@ -52,7 +56,7 @@ function App() {
               <footer>
                 <Footer />
               </footer>
-            </>
+            </FadeTransition>
 
         }
       </AnimatePresence>

@@ -18,7 +18,10 @@ export const Home = () => {
     }
 
     return (
-        <FadeTransition>
+        <FadeTransition
+            durationSeconds={0.3}
+            isInAnimatePresence={false}
+        >
             <div className={styles.home}>
                 <section className={styles.groupCardsContainer}>
                     <h2>Groups</h2>
