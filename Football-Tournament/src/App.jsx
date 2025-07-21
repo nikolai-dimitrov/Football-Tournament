@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
+import { AnimatePresence, motion } from 'framer-motion'
 import { TournamentProvider } from './contexts/TournamentContext'
 import { Navigation } from './components/Navigation/Navigation'
 import { Home } from './components/Home/Home'
@@ -20,30 +21,41 @@ function App() {
 
   return (
     <>
-      {
-        showOpeningAnimation
-          ?
-          <OpeningAnimation />
-          :
-          <>
-            <header>
-              <Navigation />
-            </header>
-            <main>
-              <TournamentProvider>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="match/details/:id" element={<MatchDetails />} />
-                  <Route path="team/details/:id" element={<TeamDetails />} />
-                </Routes>
-              </TournamentProvider>
-            </main>
-            <footer>
-              <Footer />
-            </footer>
-          </>
+      <AnimatePresence mode="wait">
+        {
+          showOpeningAnimation
+            ?
+            <motion.div
+              key="loadingLayoutContainer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <OpeningAnimation />
 
-      }
+            </motion.div >
+            :
+            <>
+              <header>
+                <Navigation />
+              </header>
+              <main>
+                <TournamentProvider>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="match/details/:id" element={<MatchDetails />} />
+                    <Route path="team/details/:id" element={<TeamDetails />} />
+                  </Routes>
+                </TournamentProvider>
+              </main>
+              <footer>
+                <Footer />
+              </footer>
+            </>
+
+        }
+      </AnimatePresence>
     </>
   )
 }
