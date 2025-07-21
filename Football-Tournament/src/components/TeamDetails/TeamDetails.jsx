@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect, useMemo, useContext } from 'react'
 import { useParams } from 'react-router'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -17,7 +17,22 @@ export const TeamDetails = () => {
             return;
         }
 
-    }, [])
+    }, [id]);
+
+    const sortingPriorityObject = {
+        'GK': 0,
+        'DF': 1,
+        'MF': 2,
+        'FW': 3,
+    }
+
+    const players = playersMappedWithTeams[1];
+
+    // useMemo to prevent unnecessary sorting when components re-render
+    const sortedPlayersByPosition = useMemo(() => players?.sort((playerA, playerB) => {
+        return sortingPriorityObject[playerA.Position] - sortingPriorityObject[playerB.Position]
+    }), [players]);
+    
     return (
         <div className={styles.teamDetails}>
             <AnimatePresence mode="wait">
@@ -44,7 +59,7 @@ export const TeamDetails = () => {
                                 </div>
                                 <p>Pos.</p>
                             </div>
-                            {playersMappedWithTeams[id].map(currentPlayer => (
+                            {sortedPlayersByPosition.map(currentPlayer => (
                                 <li className={styles.teamDetailsRow} key={currentPlayer.FullName}>
                                     <div>
                                         <p>
