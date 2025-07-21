@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { BiFootball } from "react-icons/bi"
 import styles from "./opening-animation.module.css"
 export const OpeningAnimation = () => {
