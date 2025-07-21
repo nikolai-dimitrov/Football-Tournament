@@ -1,10 +1,12 @@
 import { easeInOut, motion } from "framer-motion";
 
-export const FadeTransition = ({ children }) => {
+export const FadeTransition = ({ children, className, keyString, durationSeconds, isInAnimatePresence }) => {
     return (
         <motion.div
+            className={className && className}
+            key={keyString && keyString}
             transition={{
-                duration: 0.5,
+                duration: durationSeconds,
                 ease: easeInOut,
             }}
 
@@ -16,6 +18,11 @@ export const FadeTransition = ({ children }) => {
             animate={{
                 opacity: 1,
             }}
+
+            exit={
+                isInAnimatePresence && { opacity: 0 }
+            }
+
         >
             {children}
         </motion.div>
