@@ -129,12 +129,7 @@ export const MatchDetails = () => {
                             <div className={styles.matchResultContainer}>
                                 {countries.map((countryName) => (
                                     <div key={countryName}>
-                                        {countryName == 'Scotland' ?
-                                            <img className={styles.scotlandFlag} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png" alt="Flag Image" />
-                                            :
-                                            <img src={countryFlags[countryName]} alt="Flag Image" />
-
-                                        }
+                                        <img className={countryName == 'Scotland' ? `${styles.scotlandFlag}` : ''} src={countryFlags[countryName]} alt="Flag Image" />
                                         <p >{countryName}</p>
                                     </div>
                                 ))}
@@ -144,7 +139,7 @@ export const MatchDetails = () => {
                                 {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
 
                                     <div key={teamID} className={styles.field}>
-                                        <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}`}>
+                                        <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}?country=${countries[index]}`}>
                                             <div data-tooltip-id="my-tooltip-1">
                                                 <IoInformationSharp size={34} />
                                             </div>
