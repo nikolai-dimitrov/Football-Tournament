@@ -2,6 +2,20 @@
 	height: calc(100vh - 184px);
 }
 
+.headingContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 600px;
+	margin: 0 auto 15px auto;
+	color: #c6cccc;
+}
+
+.scotlandFlag {
+	width: 64px;
+	height: 43px;
+}
+
 .teamDetailsTable {
 	margin: 0 auto;
 	max-width: 600px;
@@ -15,7 +29,7 @@
 	position: sticky;
 	top: 0px;
 	padding: 20px;
- 	background-color: #001e28;
+	background-color: #001e28;
 	color: #c6cccc;
 }
 

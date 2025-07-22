@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useContext } from 'react'
-import { useParams } from 'react-router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useParams, useSearchParams } from 'react-router'
+import { AnimatePresence } from 'framer-motion'
 
 import { TournamentContext } from '../../contexts/TournamentContext'
 
 import { FadeTransition } from '../FadeTransition/FadeTransition'
 import { LoadingAnimation } from '../LoadingAnimation/LoadingAnimation'
 
+import { countryFlags } from '../../constants/countryFlags'
+
 import styles from './team-details.module.css'
 export const TeamDetails = () => {
     const { playersMappedWithTeams, isLoading } = useContext(TournamentContext);
     const { id } = useParams();
+    const [searchParams] = useSearchParams();
+    const countryName = searchParams.get('country');
 
     useEffect(() => {
         if (isLoading) {
@@ -32,7 +36,7 @@ export const TeamDetails = () => {
     const sortedPlayersByPosition = useMemo(() => players?.sort((playerA, playerB) => {
         return sortingPriorityObject[playerA.Position] - sortingPriorityObject[playerB.Position]
     }), [players]);
-    
+
     return (
         <div className={styles.teamDetails}>
             <AnimatePresence mode="wait">
@@ -51,6 +55,11 @@ export const TeamDetails = () => {
                         isInAnimatePresence={false}
                         durationSeconds={0.7}
                     >
+                        <div className={styles.headingContainer}>
+                            <img className={countryName == 'Scotland' ? `${styles.scotlandFlag}` : ''} src={countryFlags[countryName]} alt="Flag Image" />
+
+                            <h2>{countryName}</h2>
+                        </div>
                         <ul className={styles.teamDetailsTable}>
                             <div className={styles.titlesContainer}>
                                 <div>
