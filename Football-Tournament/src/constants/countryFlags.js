@@ -1,6 +1,6 @@
 export const countryFlags = {
 	Germany: "https://flagsapi.com/DE/flat/64.png",
-	Scotland: "https://flagsapi.com/SC/flat/64.png",
+	Scotland: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
 	Hungary: "https://flagsapi.com/HU/flat/64.png",
 	Switzerland: "https://flagsapi.com/CH/flat/64.png",
 	Spain: "https://flagsapi.com/ES/flat/64.png",
