@@ -21,6 +21,7 @@
 	max-width: 600px;
 	max-height: calc(100vh - 264px);
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 .titlesContainer {
