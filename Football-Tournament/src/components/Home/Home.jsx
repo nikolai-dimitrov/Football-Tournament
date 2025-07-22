@@ -23,11 +23,11 @@ export const Home = () => {
             isInAnimatePresence={false}
         >
             <div className={styles.home}>
-                <section className={styles.groupCardsContainer}>
+                <section className={styles.groupsLayout}>
                     <h2>Groups</h2>
-                    {matchesGroupStageSchema?.map(([matchGroupName, groupMatchesArray], index) => {
-                        return (
-                            <div className={styles.groupContainer} key={index}>
+                    <div className={styles.groupsContainer}>
+                        {matchesGroupStageSchema?.map(([matchGroupName, groupMatchesArray], index) => (
+                            <div className={styles.group} key={index}>
                                 <h3>{matchGroupName}</h3>
                                 <ul className={styles.groupContent}>
                                     {groupMatchesArray.map((currentMatch, index) => {
@@ -44,8 +44,9 @@ export const Home = () => {
                                     })}
                                 </ul>
                             </div>
-                        )
-                    })}
+
+                        ))}
+                    </div>
                 </section>
                 <section className={styles.matchBracketsContainer}>
                     {matchesPlayedAfterGroupsSchema.map((matchesArray, index) => (
