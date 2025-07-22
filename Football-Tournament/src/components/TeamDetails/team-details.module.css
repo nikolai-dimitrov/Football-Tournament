@@ -19,7 +19,7 @@
 .teamDetailsTable {
 	margin: 0 auto;
 	max-width: 600px;
-	max-height: calc(100vh - 184px);
+	max-height: calc(100vh - 264px);
 	overflow: scroll;
 }
 
