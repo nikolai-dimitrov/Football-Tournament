@@ -34,13 +34,13 @@ const addPlayerToStarterOrSubs = (currentPlayer, startersSubsObj) => {
 	startersSubsObj[keyString].push(currentPlayer);
 };
 
-const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
+const getTeamWinner = (ATeamScore, BTeamScore, ATeamName, BTeamName) => {
 	let teamWinner = null;
 
-	if (teamAscore.length > 1) {
+	if (ATeamScore.length > 1) {
 		// Get scored penalties if match finishes with equal result
-		const teamApenaltyScore = teamAscore[2];
-		const teamBpenaltyScore = teamBscore[2];
+		const teamApenaltyScore = ATeamScore[2];
+		const teamBpenaltyScore = BTeamScore[2];
 
 		if (Number(teamApenaltyScore) > Number(teamBpenaltyScore)) {
 			teamWinner = ATeamName;
@@ -48,9 +48,9 @@ const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
 			teamWinner = BTeamName;
 		}
 	} else {
-		if (Number(teamAscore) > Number(teamBscore)) {
+		if (Number(ATeamScore) > Number(BTeamScore)) {
 			teamWinner = ATeamName;
-		} else if (Number(teamAscore) < Number(teamBscore)) {
+		} else if (Number(ATeamScore) < Number(BTeamScore)) {
 			teamWinner = BTeamName;
 		}
 	}
@@ -58,15 +58,15 @@ const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
 	return teamWinner;
 };
 
-const extendMatchObject = (currentMatch, tempTeamsObject) => {
-	const ATeamName = tempTeamsObject[currentMatch.ATeamID][0];
-	const BTeamName = tempTeamsObject[currentMatch.BTeamID][0];
+const extendMatchObject = (currentMatch, allTeams) => {
+	const ATeamName = allTeams[currentMatch.ATeamID][0];
+	const BTeamName = allTeams[currentMatch.BTeamID][0];
 
 	const currentMatchScore = currentMatch.Score;
-	const [teamAscore, teamBscore] = currentMatchScore.split("-");
+	const [ATeamScore, BTeamScore] = currentMatchScore.split("-");
 	const teamWinner = getTeamWinner(
-		teamAscore,
-		teamBscore,
+		ATeamScore,
+		BTeamScore,
 		ATeamName,
 		BTeamName
 	);
@@ -75,8 +75,8 @@ const extendMatchObject = (currentMatch, tempTeamsObject) => {
 		...currentMatch,
 		ATeamName,
 		BTeamName,
-		teamAscore,
-		teamBscore,
+		ATeamScore,
+		BTeamScore,
 		teamWinner,
 	};
 
@@ -85,42 +85,40 @@ const extendMatchObject = (currentMatch, tempTeamsObject) => {
 
 export const mapMatchesWithTournamentPhases = (
 	matchesData,
-	tempTeamsObject
+	allTeams
 ) => {
-	let tempMatchesPlayedInGroups = {};
-	let tempMatchesPlayedAfterGroups = [];
-
-	const groupStageFinalDate = new Date("6/26/2024");
+	let matchesPlayedInGroups = {};
+	let matchesPlayedAfterGroups = [];
+	console.log(matchesData)
+	const groupStageEndDate = new Date("6/26/2024");
 
 	matchesData.forEach((currentMatch) => {
 		const currentMatchDate = new Date(currentMatch.Date);
 		// // The group where match is played in (ATeam and BTeam are always in same group during the group stage)
-		const currentMatchGroup = tempTeamsObject[currentMatch.ATeamID][1];
+		const currentMatchGroup = allTeams[currentMatch.ATeamID][1];
 
 		const extendedMatchObj = extendMatchObject(
 			currentMatch,
-			tempTeamsObject
+			allTeams
 		);
 
-		if (currentMatchDate <= groupStageFinalDate) {
-			// Get only matches which are played in groups stage.
-			if (!tempMatchesPlayedInGroups[currentMatchGroup]) {
-				tempMatchesPlayedInGroups[currentMatchGroup] = [];
+		if (currentMatchDate <= groupStageEndDate) {
+			if (!matchesPlayedInGroups[currentMatchGroup]) {
+				matchesPlayedInGroups[currentMatchGroup] = [];
 			}
 
-			tempMatchesPlayedInGroups[currentMatchGroup].push(extendedMatchObj);
+			matchesPlayedInGroups[currentMatchGroup].push(extendedMatchObj);
 		} else {
-			// Get only matches which are played after the group stage.
-			tempMatchesPlayedAfterGroups.push(extendedMatchObj);
+			matchesPlayedAfterGroups.push(extendedMatchObj);
 		}
 	});
 
 	// Sort by date to ensure last match will be the final if csv file structure changes
-	tempMatchesPlayedAfterGroups.sort(
+	matchesPlayedAfterGroups.sort(
 		(a, b) => new Date(a.Date) - new Date(b.Date)
 	);
 
-	return { tempMatchesPlayedInGroups, tempMatchesPlayedAfterGroups };
+	return { matchesPlayedInGroups, matchesPlayedAfterGroups };
 };
 
 // Create matrix which represent the structure of matches after group stage. Every array contains match objects represents the state of tournament like round of 8 , round of 4 round of 2 and final round.

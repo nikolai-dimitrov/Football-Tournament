@@ -17,7 +17,7 @@ export const Match = ({currentMatch}) => {
                         }
                         <p>{currentMatch.ATeamName}</p>
                     </div>
-                    <p>{currentMatch.teamAscore}</p>
+                    <p>{currentMatch.ATeamScore}</p>
                 </div>
                 <div className={currentMatch.teamWinner == currentMatch.BTeamName ? styles.winnerHighlight : ''}>
                     <div>
@@ -29,7 +29,7 @@ export const Match = ({currentMatch}) => {
                         }
                         <p>{currentMatch.BTeamName}</p>
                     </div>
-                    <p>{currentMatch.teamBscore}</p>
+                    <p>{currentMatch.BTeamScore}</p>
                 </div>
             </div>
         </>

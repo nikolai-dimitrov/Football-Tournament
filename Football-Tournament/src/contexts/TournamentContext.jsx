@@ -23,6 +23,7 @@ export const TournamentProvider = ({ children }) => {
         ]).then(([matchesData, teamsData, playersData, playerRecordsData]) => {
 
             const allTeams = {};
+            
             teamsData.forEach((el) => {
                 allTeams[el.ID] = [el.Name, el.Group]
             });
