@@ -29,10 +29,10 @@ export const MatchDetails = () => {
             return;
         }
 
-        const tempCurrentMatch = matches.find((el) => el.ID == id);
-        const formattedScore = tempCurrentMatch.Score.replace("-", " : ");
+        const match = matches.find((el) => el.ID == id);
+        const formattedScore = match.Score.replace("-", " : ");
 
-        const { ATeamID, BTeamID } = tempCurrentMatch;
+        const { ATeamID, BTeamID } = match;
 
         const ACountryName = teams.find((currentTeam) => currentTeam.ID == ATeamID).Name;
         const BCountryName = teams.find((currentTeam) => currentTeam.ID == BTeamID).Name;
@@ -42,7 +42,7 @@ export const MatchDetails = () => {
         const [ tempStarterAndBenchPlayersSchema, tempTeamsAndPositionsSchema ] = processMatchPlayers(allPlayersInMatch, ATeamID, BTeamID);
 
         setCountries(state => [ACountryName, BCountryName]);
-        setCurrentMatch(state => ({ ...tempCurrentMatch, Score: formattedScore }));
+        setCurrentMatch(state => ({ ...match, Score: formattedScore }));
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
