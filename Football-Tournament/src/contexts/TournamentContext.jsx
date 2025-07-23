@@ -23,9 +23,13 @@ export const TournamentProvider = ({ children }) => {
         ]).then(([matchesData, teamsData, playersData, playerRecordsData]) => {
 
             const allTeams = {};
-            
+
+            // If csv file order changes it will prevent wrong relations, because of keys.
+            // Easier to take Team Data by ID and avoid using .find() method for every match record to get the Team Data
             teamsData.forEach((el) => {
-                allTeams[el.ID] = [el.Name, el.Group]
+                allTeams[el.ID] = {
+                    ...el
+                }
             });
 
             let { matchesPlayedInGroups, matchesPlayedAfterGroups } = mapMatchesWithTournamentPhases(matchesData, allTeams);

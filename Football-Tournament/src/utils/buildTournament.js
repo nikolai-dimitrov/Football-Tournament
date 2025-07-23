@@ -59,8 +59,8 @@ const getTeamWinner = (ATeamScore, BTeamScore, ATeamName, BTeamName) => {
 };
 
 const extendMatchObject = (currentMatch, allTeams) => {
-	const ATeamName = allTeams[currentMatch.ATeamID][0];
-	const BTeamName = allTeams[currentMatch.BTeamID][0];
+	const ATeamName = allTeams[currentMatch.ATeamID].Name;
+	const BTeamName = allTeams[currentMatch.BTeamID].Name;
 
 	const currentMatchScore = currentMatch.Score;
 	const [ATeamScore, BTeamScore] = currentMatchScore.split("-");
@@ -89,13 +89,13 @@ export const mapMatchesWithTournamentPhases = (
 ) => {
 	let matchesPlayedInGroups = {};
 	let matchesPlayedAfterGroups = [];
-	console.log(matchesData)
+	
 	const groupStageEndDate = new Date("6/26/2024");
 
 	matchesData.forEach((currentMatch) => {
 		const currentMatchDate = new Date(currentMatch.Date);
 		// // The group where match is played in (ATeam and BTeam are always in same group during the group stage)
-		const currentMatchGroup = allTeams[currentMatch.ATeamID][1];
+		const currentMatchGroup = allTeams[currentMatch.ATeamID].Group;
 
 		const extendedMatchObj = extendMatchObject(
 			currentMatch,
