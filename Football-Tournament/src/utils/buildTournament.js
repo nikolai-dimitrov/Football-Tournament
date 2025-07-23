@@ -23,6 +23,17 @@ const isStarterPlayerChanged = (currentPlayerRecord) => {
 	return isStarterPlayerChanged;
 };
 
+const addPlayerToPosition = (currentPlayer, teamPositionsObj) => {
+	const currentPlayerPosition = currentPlayer.playerDetails.Position;
+	teamPositionsObj[currentPlayerPosition].push(currentPlayer);
+};
+
+const addPlayerToStarterOrSubs = (currentPlayer, startersSubsObj) => {
+	const keyString =
+		currentPlayer.fromMinutes == "0" ? "starters" : "substitutes";
+	startersSubsObj[keyString].push(currentPlayer);
+};
+
 export const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
 	let teamWinner = null;
 
@@ -33,22 +44,19 @@ export const getTeamWinner = (teamAscore, teamBscore, ATeamName, BTeamName) => {
 
 		if (Number(teamApenaltyScore) > Number(teamBpenaltyScore)) {
 			teamWinner = ATeamName;
-		}
-		else if (Number(teamApenaltyScore) < Number(teamBpenaltyScore)) {
+		} else if (Number(teamApenaltyScore) < Number(teamBpenaltyScore)) {
 			teamWinner = BTeamName;
 		}
-
 	} else {
 		if (Number(teamAscore) > Number(teamBscore)) {
 			teamWinner = ATeamName;
-		}
-		else if (Number(teamAscore) < Number(teamBscore)) {
+		} else if (Number(teamAscore) < Number(teamBscore)) {
 			teamWinner = BTeamName;
 		}
 	}
 
 	return teamWinner;
-}
+};
 
 // Create matrix which represent the structure of matches after group stage. Every array contains match objects represents the state of tournament like round of 8 , round of 4 round of 2 and final round.
 export const createTournamentRoundsMatrix = (
@@ -128,10 +136,11 @@ export const createPlayersToMatchesRelations = (
 		}
 
 		const currentPlayerId = currentPlayerRecord["PlayerID"];
-		// playersData is sorted incrementing order by ID. player on index - 0 contains ID: 1
+		// playersData is sorted in incrementing order by ID. player on index - 0 contains ID: 1
 		const playerDetails = playersData[currentPlayerId - 1];
 
-		const [isCaptain, FullName] = getCaptainStatusAndFullName(playerDetails);
+		const [isCaptain, FullName] =
+			getCaptainStatusAndFullName(playerDetails);
 		const isPlayerChanged = isStarterPlayerChanged(currentPlayerRecord);
 
 		currentPlayerRecord = {
@@ -146,4 +155,55 @@ export const createPlayersToMatchesRelations = (
 	});
 
 	return playersRecordsToMatchesRelation;
+};
+
+// Add current player to starters and benched players and also map players with their positions in this function to avoid duplicate logic and and doing 1 additional iteration over the all players array.
+export const processMatchPlayers = (allPlayersInMatch, ATeamID, BTeamID) => {
+	const ATeamPositionsObj = {
+		GK: [],
+		DF: [],
+		MF: [],
+		FW: [],
+	};
+
+	const BTeamPositionsObj = {
+		GK: [],
+		DF: [],
+		MF: [],
+		FW: [],
+	};
+
+	const ATeamStartersBenchesObj = {
+		starters: [],
+		substitutes: [],
+	};
+
+	const BTeamStartersBenchesObj = {
+		starters: [],
+		substitutes: [],
+	};
+
+	const teamsAndPositionsSchema = [
+		[ATeamID, ATeamPositionsObj],
+		[BTeamID, BTeamPositionsObj],
+	];
+
+	const starterAndBenchPlayersSchema = [
+		[ATeamID, ATeamStartersBenchesObj],
+		[BTeamID, BTeamStartersBenchesObj],
+	];
+
+	allPlayersInMatch.forEach((currentPlayer) => {
+		const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
+
+		if (currentPlayerTeamId == ATeamID) {
+			addPlayerToPosition(currentPlayer, ATeamPositionsObj);
+			addPlayerToStarterOrSubs(currentPlayer, ATeamStartersBenchesObj);
+		} else {
+			addPlayerToPosition(currentPlayer, BTeamPositionsObj);
+			addPlayerToStarterOrSubs(currentPlayer, BTeamStartersBenchesObj);
+		}
+	});
+
+	return [starterAndBenchPlayersSchema, teamsAndPositionsSchema];
 };
