@@ -22,30 +22,24 @@ export const TournamentProvider = ({ children }) => {
             csvFileProcessor.getRecords(),
         ]).then(([matchesData, teamsData, playersData, playerRecordsData]) => {
 
-            const teamsObject = {};
-            // Create object with id = Team Name and Group
+            const allTeams = {};
             teamsData.forEach((el) => {
-                teamsObject[el.ID] = [el.Name, el.Group]
+                allTeams[el.ID] = [el.Name, el.Group]
             });
-            // check teams data
 
-            // tempMatchesPlayedInGroups - object with group names as keys and for each key there is array which contains all matches played in this group.
-            // tempMatchesPlayedAfterGroups - array with matches which are played after the groups
-            let { tempMatchesPlayedInGroups, tempMatchesPlayedAfterGroups } = mapMatchesWithTournamentPhases(matchesData, teamsObject);
+            let { matchesPlayedInGroups, matchesPlayedAfterGroups } = mapMatchesWithTournamentPhases(matchesData, allTeams);
 
-            // Create array with nested arrays and sort them by group name which is in nested arrays at index 0 from A -> F
-            const tempMatchesGroupStageSchema = Object.entries(tempMatchesPlayedInGroups).sort((a, b) => a[0].localeCompare(b[0]));
+            // Create sorted matrix by group A -> F
+            const groupStageSchema = Object.entries(matchesPlayedInGroups).sort((a, b) => a[0].localeCompare(b[0]));
 
-            // Convert matches to matrix which every array represent each round of the tournament.
-            // Matrix contains arrays, each array contains matches for every stage of tournament after the groups. (array[0] => 8 matches (rounds of eight), array[1] => 4 (quarter finals) and following.)
-            const tempMatchesPlayedAfterGroupsSchema = createTournamentRoundsMatrix([8, 4, 2, 1], tempMatchesPlayedAfterGroups);
+            // Convert matches to matrix where every array represent each round of the tournament after group stage.
+            const matchesAfterGroups = createTournamentRoundsMatrix([8, 4, 2, 1], matchesPlayedAfterGroups);
 
-            // Convert matrix with rounds of the tournament to sorted array with match objects.
             // Sort the array based on which pair of teams in the quarter-finals from which pairs of teams in the round of 16 it comes from and same for next stages of the tournament.
-            const sortedMatchesArray = convertMatrixToSortedArray(tempMatchesPlayedAfterGroupsSchema);
+            const sortedMatchesAfterGroups = convertMatrixToSortedArray(matchesAfterGroups);
 
             // Convert sorted array with match objects to matrix which represents the final sorted tournament schema.
-            const tempSortedMatchesPlayedAfterGroupsSchema = createTournamentRoundsMatrix([8, 4, 2, 1], sortedMatchesArray);
+            const matchesPlayedAfterGroupsSchema = createTournamentRoundsMatrix([8, 4, 2, 1], sortedMatchesAfterGroups);
 
             // Object with key - TeamID, value - Array with players which plays in this team. { TeamID:[{player}, {player} ...]}
             const playersTeamsRelationsObject = createPlayersToTeamsRelations(playersData);
@@ -58,8 +52,8 @@ export const TournamentProvider = ({ children }) => {
             setMatches(matchesData);
             setPlayersMappedWithTeams(playersTeamsRelationsObject);
             setPlayersMappedWithMatches(playersMatchesRelationsObject);
-            setMatchesGroupStageSchema(tempMatchesGroupStageSchema);
-            setMatchesPlayedAfterGroupsSchema(tempSortedMatchesPlayedAfterGroupsSchema);
+            setMatchesGroupStageSchema(groupStageSchema);
+            setMatchesPlayedAfterGroupsSchema(matchesPlayedAfterGroupsSchema);
 
         }).catch((error) => {
             console.log(error);
