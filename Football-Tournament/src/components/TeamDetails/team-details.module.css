@@ -11,6 +11,10 @@
 	color: #c6cccc;
 }
 
+.headingContainer img {
+	width: 88px;
+}
+
 .scotlandFlag {
 	width: 64px;
 	height: 43px;
@@ -56,6 +60,10 @@
 	gap: 30px;
 }
 
+.teamDetailsTable li div p:first-of-type  {
+	width: 18px;
+}
+
 .teamDetailsTable li > p {
 	border-radius: 50%;
 	background-color: #001e28;
@@ -63,4 +71,27 @@
 	padding: 7px 5px;
 	width: 34px;
 	text-align: center;
+}
+
+/* Media Queries */
+@media screen and (max-width: 700px) {
+	.teamDetails {
+		padding: 0 20px 0 20px;
+	}
+
+	.teamDetailsTable li {
+		padding: 14px 18px;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.teamDetailsTable li {
+		padding: 12px 14px;
+		font-size: 15px;
+	}
+
+	.teamDetailsTable li div {
+		gap: 20px;
+		align-items: center;
+	}
 }
