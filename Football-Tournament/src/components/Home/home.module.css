@@ -70,7 +70,7 @@
 	gap: 60px;
 	width: 75%;
 	height: 100%;
-	padding-top: 38px;
+	padding-top: 42px;
 	color: #b1afaf;
 }
 
@@ -126,10 +126,10 @@
 .roundOfEight .matchBracket.even::before {
 	content: "";
 	position: absolute;
-	top: -43px;
+	top: -45px;
 	right: -50px;
 	width: 2px;
-	height: 75px;
+	height: 78px;
 	background-color: #fff;
 }
 
@@ -140,10 +140,10 @@
 .quarterFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
-	top: -116px;
+	top: -119px;
 	right: -50px;
 	width: 2px;
-	height: 145px;
+	height: 151px;
 	background-color: #fff;
 }
 
@@ -154,10 +154,10 @@
 .semiFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
-	top: -263px;
+	top: -265px;
 	right: -50px;
 	width: 2px;
-	height: 293px;
+	height: 298px;
 	background-color: #fff;
 }
 
