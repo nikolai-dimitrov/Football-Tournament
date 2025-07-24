@@ -20,9 +20,13 @@ export const OpeningAnimation = () => {
                 }}
             >
                 <div
-                    className={styles.logo}>
-                    <BiFootball className={styles.ballIcon} size={44} />
-                    <h3>Football</h3>
+                    className={styles.logo}
+                >
+                    <div>
+                        <BiFootball className={styles.ballIcon} />
+                        <h3>Football</h3>
+                    </div>
+
                     <h3>Championship</h3>
                 </div>
             </motion.div>
