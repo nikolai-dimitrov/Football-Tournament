@@ -1,5 +1,7 @@
 .home {
 	display: flex;
+	/*  */
+	align-items: center; 
 	gap: 50px;
 }
 
@@ -13,6 +15,7 @@
 	flex-direction: column;
 	width: 22%;
 	height: 85vh;
+	min-height: 685px;
 }
 
 .groupsLayout h2 {
@@ -64,8 +67,10 @@
 .matchBracketsContainer {
 	display: flex;
 	align-items: center;
-	gap: 80px;
+	gap: 60px;
 	width: 75%;
+	height: 100%;
+	padding-top: 38px;
 	color: #b1afaf;
 }
 
@@ -106,13 +111,14 @@
 .qualificationMatchesContent .roundOfEight {
 	gap: 15px;
 }
-
-.roundOfEight .matchBracket::after {
+.roundOfEight .matchBracket::after,
+.quarterFinals .matchBracket::after,
+.semiFinals .matchBracket::after {
 	content: "";
 	position: absolute;
 	top: 50%;
-	right: -70px;
-	width: 70px;
+	right: -50px;
+	width: 50px;
 	height: 2px;
 	background-color: #fff;
 }
@@ -121,7 +127,7 @@
 	content: "";
 	position: absolute;
 	top: -43px;
-	right: -70px;
+	right: -50px;
 	width: 2px;
 	height: 75px;
 	background-color: #fff;
@@ -131,21 +137,11 @@
 	gap: 88px;
 }
 
-.quarterFinals .matchBracket::after {
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: -70px;
-	width: 70px;
-	height: 2px;
-	background-color: #fff;
-}
-
 .quarterFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
 	top: -116px;
-	right: -70px;
+	right: -50px;
 	width: 2px;
 	height: 145px;
 	background-color: #fff;
@@ -155,21 +151,11 @@
 	gap: 235px;
 }
 
-.semiFinals .matchBracket::after {
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: -70px;
-	width: 70px;
-	height: 2px;
-	background-color: #fff;
-}
-
 .semiFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
 	top: -263px;
-	right: -70px;
+	right: -50px;
 	width: 2px;
 	height: 293px;
 	background-color: #fff;
@@ -184,3 +170,165 @@
 	height: 2px;
 	background-color: #fff;
 }
+
+/* Media queries */
+
+@media screen and (max-width: 1600px) {
+	.home {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.matchBracketsContainer {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 25%;
+	}
+}
+
+@media screen and (max-width: 1368px) {
+	.groupsLayout {
+		min-width: 28%;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 33%;
+	}
+}
+
+@media screen and (max-width: 1124px) {
+	.groupsLayout {
+		min-width: 31%;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 40%;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.groupsLayout {
+		min-width: 36%;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 50%;
+	}
+}
+
+@media screen and (max-width: 860px) {
+	.groupsLayout {
+		min-width: 40%;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 65%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.home {
+		flex-direction: column;
+	}
+
+	.groupsLayout {
+		width: 100%;
+	}
+
+	.groupsLayout h2 {
+		text-align: center;
+	}
+
+	.groupsContainer {
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.group {
+		min-width: 49%;
+	}
+
+	.matchBracketsContainer {
+		overflow: scroll;
+		width: 100%;
+		padding-top: unset;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 43%;
+	}
+}
+
+@media screen and (max-width: 610px) {
+	.qualificationMatchesContent {
+		min-width: 50%;
+	}
+}
+
+@media screen and (max-width: 565px) {
+	.group {
+		min-width: 70%;
+	}
+
+	.matchBracketsContainer {
+		width: 70%;
+		margin: 0 auto;
+		overflow-y: hidden;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 100%;
+	}
+}
+
+
+
+@media screen and (max-width: 470px) {
+	.home {
+		padding-left: 8px;
+		padding-right: unset;
+	}
+
+	.group {
+		min-width: 90%;
+	}
+
+	.matchBracketsContainer {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	.qualificationMatchesContent {
+		min-width: 100%;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	.groupsLayout h2 {
+		font-size: 20px;
+	}
+
+	.group h3 {
+		font-size: 15px;
+	}
+
+	.groupContent {
+		font-size: 14px;
+	}
+
+	.qualificationMatchesContent h3 {
+		font-size: 15px;
+	}
+
+	.qualificationMatchesContent ul {
+		font-size: 14px;
+	}
+
+}
+
+/* Additional */
+/* PO MALKO OT 820 HEIGHT
+poveche ot 768 width */
