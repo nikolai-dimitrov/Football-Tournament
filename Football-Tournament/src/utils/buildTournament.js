@@ -83,13 +83,10 @@ const extendMatchObject = (currentMatch, allTeams) => {
 	return extendedCurrentMatchObj;
 };
 
-export const mapMatchesWithTournamentPhases = (
-	matchesData,
-	allTeams
-) => {
+export const mapMatchesWithTournamentPhases = (matchesData, allTeams) => {
 	let matchesPlayedInGroups = {};
 	let matchesPlayedAfterGroups = [];
-	
+
 	const groupStageEndDate = new Date("6/26/2024");
 
 	matchesData.forEach((currentMatch) => {
@@ -97,10 +94,7 @@ export const mapMatchesWithTournamentPhases = (
 		// // The group where match is played in (ATeam and BTeam are always in same group during the group stage)
 		const currentMatchGroup = allTeams[currentMatch.ATeamID].Group;
 
-		const extendedMatchObj = extendMatchObject(
-			currentMatch,
-			allTeams
-		);
+		const extendedMatchObj = extendMatchObject(currentMatch, allTeams);
 
 		if (currentMatchDate <= groupStageEndDate) {
 			if (!matchesPlayedInGroups[currentMatchGroup]) {
@@ -190,9 +184,14 @@ export const createPlayersToMatchesRelations = (
 	playersData
 ) => {
 	const playersRecordsToMatchesRelation = {};
-
-	// Sort playersData to prevent iterating to get the player detailed information because if using array method which iterates over the players there will be 600 iterations for every playerRecords
-	playersData.sort((a, b) => a.ID - b.ID);
+	
+	// Instead of sorting the array and get player by playersData[currentPlayerId - 1] set player's ID as key and get it by ID. Player records in the object will be also sorted because of keys.
+	const players = {};
+	playersData.forEach((el) => {
+		players[el.ID] = {
+			...el,
+		};
+	});
 
 	playersRecords.forEach((currentPlayerRecord) => {
 		if (!playersRecordsToMatchesRelation[currentPlayerRecord.MatchID]) {
@@ -200,8 +199,7 @@ export const createPlayersToMatchesRelations = (
 		}
 
 		const currentPlayerId = currentPlayerRecord["PlayerID"];
-		// playersData is sorted in incrementing order by ID. player on index - 0 contains ID: 1
-		const playerDetails = playersData[currentPlayerId - 1];
+		const playerDetails = players[currentPlayerId];
 
 		const [isCaptain, FullName] =
 			getCaptainStatusAndFullName(playerDetails);
