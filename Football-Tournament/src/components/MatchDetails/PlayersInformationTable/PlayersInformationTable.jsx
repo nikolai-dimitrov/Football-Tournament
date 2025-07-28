@@ -2,11 +2,12 @@ import { BiTransfer } from "react-icons/bi";
 
 import styles from "./players-information-table.module.css"
 
-export const PlayersInformationTable = ({ substitutesAndStartersObj, teamId }) => {
+export const PlayersInformationTable = ({ substitutesAndStarters, teamId }) => {
+
     return (
         <div className={styles.playersContainer}>
             {/* type: starter OR substitutes, playersArray: array with objects which is corresponding to starter or substitute type for the current team and match */}
-            {Object.entries(substitutesAndStartersObj).map(([type, playersArray], index) => (
+            {Object.entries(substitutesAndStarters).map(([type, playersArray], index) => (
                 playersArray.length > 0 ?
                     (<ul key={`${teamId}-${type}`}>
                         <h3>{type.toUpperCase()}</h3>
@@ -19,7 +20,7 @@ export const PlayersInformationTable = ({ substitutesAndStartersObj, teamId }) =
                             <p>Finish</p>
                         </div>
                         {/* currentPlayerRecord contains all information for the player and information for its participation in the current match */}
-                        {playersArray.map((currentPlayerRecord) => (
+                        {playersArray?.map((currentPlayerRecord) => (
                             <li key={currentPlayerRecord.playerDetails.FullName} className={styles.playerRecord}>
                                 <div className={styles.playerNameWrapper}>
                                     <p className={styles.playerNumber}>{currentPlayerRecord.playerDetails.TeamNumber}</p>

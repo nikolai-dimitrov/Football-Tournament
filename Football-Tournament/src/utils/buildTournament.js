@@ -23,15 +23,15 @@ const isStarterPlayerChanged = (currentPlayerRecord) => {
 	return isStarterPlayerChanged;
 };
 
-const addPlayerToPosition = (currentPlayer, teamPositionsObj) => {
+const addPlayerToPosition = (currentPlayer, teamPositions) => {
 	const currentPlayerPosition = currentPlayer.playerDetails.Position;
-	teamPositionsObj[currentPlayerPosition].push(currentPlayer);
+	teamPositions[currentPlayerPosition].push(currentPlayer);
 };
 
-const addPlayerToStarterOrSubs = (currentPlayer, startersSubsObj) => {
+const addPlayerToStarterOrSubs = (currentPlayer, startersSubs) => {
 	const keyString =
 		currentPlayer.fromMinutes == "0" ? "starters" : "substitutes";
-	startersSubsObj[keyString].push(currentPlayer);
+	startersSubs[keyString].push(currentPlayer);
 };
 
 const getTeamWinner = (ATeamScore, BTeamScore, ATeamName, BTeamName) => {
@@ -184,7 +184,7 @@ export const createPlayersToMatchesRelations = (
 	playersData
 ) => {
 	const playersRecordsToMatchesRelation = {};
-	
+
 	// Instead of sorting the array and get player by playersData[currentPlayerId - 1] set player's ID as key and get it by ID. Player records in the object will be also sorted because of keys.
 	const players = {};
 	playersData.forEach((el) => {
@@ -221,49 +221,49 @@ export const createPlayersToMatchesRelations = (
 
 // Add current player to starters and benched players and also map players with their positions in this function to avoid duplicate logic and and doing 1 additional iteration over the all players array.
 export const processMatchPlayers = (allPlayersInMatch, ATeamID, BTeamID) => {
-	const ATeamPositionsObj = {
+	const ATeamPositions = {
 		GK: [],
 		DF: [],
 		MF: [],
 		FW: [],
 	};
 
-	const BTeamPositionsObj = {
+	const BTeamPositions = {
 		GK: [],
 		DF: [],
 		MF: [],
 		FW: [],
 	};
 
-	const ATeamStartersBenchesObj = {
+	const ATeamStartersBenches = {
 		starters: [],
 		substitutes: [],
 	};
 
-	const BTeamStartersBenchesObj = {
+	const BTeamStartersBenches = {
 		starters: [],
 		substitutes: [],
 	};
 
 	const teamsAndPositionsSchema = [
-		[ATeamID, ATeamPositionsObj],
-		[BTeamID, BTeamPositionsObj],
+		[ATeamID, ATeamPositions],
+		[BTeamID, BTeamPositions],
 	];
 
-	const starterAndBenchPlayersSchema = [
-		[ATeamID, ATeamStartersBenchesObj],
-		[BTeamID, BTeamStartersBenchesObj],
-	];
+	const starterAndBenchPlayersSchema = {
+		[ATeamID]: ATeamStartersBenches,
+		[BTeamID]: BTeamStartersBenches,
+	};
 
 	allPlayersInMatch.forEach((currentPlayer) => {
 		const currentPlayerTeamId = currentPlayer.playerDetails.TeamID;
 
 		if (currentPlayerTeamId == ATeamID) {
-			addPlayerToPosition(currentPlayer, ATeamPositionsObj);
-			addPlayerToStarterOrSubs(currentPlayer, ATeamStartersBenchesObj);
+			addPlayerToPosition(currentPlayer, ATeamPositions);
+			addPlayerToStarterOrSubs(currentPlayer, ATeamStartersBenches);
 		} else {
-			addPlayerToPosition(currentPlayer, BTeamPositionsObj);
-			addPlayerToStarterOrSubs(currentPlayer, BTeamStartersBenchesObj);
+			addPlayerToPosition(currentPlayer, BTeamPositions);
+			addPlayerToStarterOrSubs(currentPlayer, BTeamStartersBenches);
 		}
 	});
 

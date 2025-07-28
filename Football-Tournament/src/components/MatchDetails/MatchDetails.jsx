@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams, Link } from "react-router"
-import { AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { Tooltip } from 'react-tooltip'
 import { TournamentContext } from "../../contexts/TournamentContext"
 
@@ -39,7 +39,7 @@ export const MatchDetails = () => {
 
         const allPlayersInMatch = playersMappedWithMatches[id];
 
-        const [ tempStarterAndBenchPlayersSchema, tempTeamsAndPositionsSchema ] = processMatchPlayers(allPlayersInMatch, ATeamID, BTeamID);
+        const [tempStarterAndBenchPlayersSchema, tempTeamsAndPositionsSchema] = processMatchPlayers(allPlayersInMatch, ATeamID, BTeamID);
 
         setCountries(state => [ACountryName, BCountryName]);
         setCurrentMatch(state => ({ ...match, Score: formattedScore }));
@@ -47,7 +47,7 @@ export const MatchDetails = () => {
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
 
     }, [id, isLoading]);
-
+    console.log(countries)
     return (
         <section className={styles.matchDetails}>
             <AnimatePresence mode="wait">
@@ -76,48 +76,49 @@ export const MatchDetails = () => {
                                 ))}
                                 <p className={styles.score} >{currentMatch.Score}</p>
                             </div>
-                            <div className={styles.fieldsContainer}>
-                                {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
+                            <div className={styles.teamsContentContainer}>
+                                <motion.div>
+                                    {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
+                                        <div key={teamID} className={index == 0 ? `${styles.frontSide}` : `${styles.backSide}`}>
+                                            <div className={styles.field}>
+                                                <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}?country=${countries[index]}`}>
+                                                    <div data-tooltip-id="my-tooltip-1">
+                                                        <IoInformationSharp size={34} />
+                                                    </div>
+                                                </Link>
+                                                <Tooltip
+                                                    id="my-tooltip-1"
+                                                    place="top"
+                                                    content="Team Details"
+                                                />
+                                                {/* center */}
+                                                <div className={styles.centerLine}></div>
+                                                <div className={styles.centerCircle}></div>
 
-                                    <div key={teamID} className={styles.field}>
-                                        <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}?country=${countries[index]}`}>
-                                            <div data-tooltip-id="my-tooltip-1">
-                                                <IoInformationSharp size={34} />
+                                                {/* bottom */}
+                                                <div className={styles.penaltyFieldBottom}></div>
+                                                <div className={styles.goalTargetFieldBottom}></div>
+                                                <div className={styles.goalTargetBottom}></div>
+
+                                                {/* top */}
+                                                <div className={styles.penaltyFieldTop}></div>
+                                                <div className={styles.goalTargetFieldTop}></div>
+                                                <div className={styles.goalTargetTop}></div>
+
+                                                {/* penalty half circles */}
+                                                <div className={styles.penaltyArcBottom}></div>
+                                                <div className={styles.penaltyArcTop}></div>
+
+                                                {Object.entries(positionObject).map(([positionName, playersArray]) => (
+                                                    <TeamLines key={`${teamID}-${positionName}`} positionName={positionName} playersArray={playersArray} />
+                                                ))}
                                             </div>
-                                        </Link>
-                                        <Tooltip
-                                            id="my-tooltip-1"
-                                            place="top"
-                                            content="Team Details"
-                                        />
-                                        {/* center */}
-                                        <div className={styles.centerLine}></div>
-                                        <div className={styles.centerCircle}></div>
-
-                                        {/* bottom */}
-                                        <div className={styles.penaltyFieldBottom}></div>
-                                        <div className={styles.goalTargetFieldBottom}></div>
-                                        <div className={styles.goalTargetBottom}></div>
-
-                                        {/* top */}
-                                        <div className={styles.penaltyFieldTop}></div>
-                                        <div className={styles.goalTargetFieldTop}></div>
-                                        <div className={styles.goalTargetTop}></div>
-
-                                        {/* penalty half circles */}
-                                        <div className={styles.penaltyArcBottom}></div>
-                                        <div className={styles.penaltyArcTop}></div>
-
-                                        {Object.entries(positionObject).map(([positionName, playersArray]) => (
-                                            <TeamLines key={`${teamID}-${positionName}`} positionName={positionName} playersArray={playersArray} />
-                                        ))}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className={styles.playersSection}>
-                                {starterAndBenchPlayersSchema.map(([teamID, substitutesAndStartersObj], index) => (
-                                    <PlayersInformationTable key={teamID} substitutesAndStartersObj={substitutesAndStartersObj} teamId={teamID} />
-                                ))}
+                                            <div className={styles.playersSection}>
+                                                <PlayersInformationTable substitutesAndStarters={starterAndBenchPlayersSchema[teamID]} teamId={teamID} />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </motion.div>
                             </div>
                         </FadeTransition>
                 }
