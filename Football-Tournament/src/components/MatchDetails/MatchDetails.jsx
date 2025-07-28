@@ -12,12 +12,14 @@ import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
 import { processMatchPlayers } from "../../utils/buildTournament"
 
 import { IoInformationSharp } from "react-icons/io5";
+import { RiFlipHorizontal2Line } from "react-icons/ri";
 
 import { countryFlags } from "../../constants/countryFlags";
 import styles from "./match-details.module.css"
 
 export const MatchDetails = () => {
     const { id } = useParams();
+    const [isFlipped, setIsFlipped] = useState(false);
     const { teams, matches, playersMappedWithMatches, isLoading } = useContext(TournamentContext);
     const [countries, setCountries] = useState([]);
     const [currentMatch, setCurrentMatch] = useState({});
@@ -77,7 +79,11 @@ export const MatchDetails = () => {
                                 <p className={styles.score} >{currentMatch.Score}</p>
                             </div>
                             <div className={styles.teamsContentContainer}>
-                                <motion.div>
+                                <motion.div
+                                    className={styles.flipCardsContainer}
+                                    animate={{ rotateY: isFlipped ? 180 : 0 }}
+                                    transition={{duration: 0.7}}
+                                >
                                     {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
                                         <div key={teamID} className={index == 0 ? `${styles.frontSide}` : `${styles.backSide}`}>
                                             <div className={styles.field}>
@@ -86,10 +92,21 @@ export const MatchDetails = () => {
                                                         <IoInformationSharp size={34} />
                                                     </div>
                                                 </Link>
+                                                <div className={styles.flipCardIconContainer} data-tooltip-id="my-tooltip-2" onClick={() => setIsFlipped(!isFlipped)}>
+                                                    <RiFlipHorizontal2Line size={34}  />
+                                                </div>
+
                                                 <Tooltip
                                                     id="my-tooltip-1"
                                                     place="top"
                                                     content="Team Details"
+                                                />
+
+                                                <Tooltip
+                                                    id="my-tooltip-2"
+                                                    place="top"
+                                                    // Show the name of the opposite team as tooltip content
+                                                    content={index == 0 ? `${countries[1]}` : `${countries[0]}`}
                                                 />
                                                 {/* center */}
                                                 <div className={styles.centerLine}></div>

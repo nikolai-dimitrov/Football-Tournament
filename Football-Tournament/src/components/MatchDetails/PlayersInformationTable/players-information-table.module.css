@@ -10,7 +10,7 @@
 	text-align: center;
 	padding: 20px;
 	border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+	border-top-right-radius: 8px;
 }
 
 .playersContainer ul h3,
@@ -52,13 +52,13 @@
 	transition-duration: 0.4s;
 	border-bottom: unset;
 	box-shadow: #00232f -1px 1px, #00232f -2px 2px, #00232f -3px 3px,
-	#00232f -4px 4px, #00232f -5px 5px;
+		#00232f -4px 4px, #00232f -5px 5px;
 }
 
 .playerNameWrapper {
-    display: flex;
-    gap: 31px;
-    width: 46%;
+	display: flex;
+	gap: 31px;
+	width: 46%;
 }
 
 .playerNameWrapper div {
@@ -67,4 +67,58 @@
 
 .playerNameWrapper .playerNumber {
 	width: 20px;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 535px) {
+	.playersContainer ul h3 {
+		font-size: 17px;
+	}
+
+	.subHeading {
+		font-size: 15px;
+	}
+
+	.playerRecord {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 430px) {
+	.playersContainer ul h3 {
+		font-size: 16px;
+	}
+
+	.subHeading {
+		padding: 15px 10px;
+	}
+
+	.subHeading .firstColumnContainer {
+		gap: 10px;
+		width: 67%;
+	}
+
+	.playerRecord {
+		padding: 15px 10px;
+	}
+
+	.playerNameWrapper {
+		gap: 10px;
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 330px) {
+	.playersContainer ul h3 {
+		font-size: 15px;
+	}
+
+	.subHeading {
+		font-size: 14px;
+	}
+
+	.playerRecord {
+		font-size: 13px;
+	}
 }

@@ -76,3 +76,85 @@
 .playerName {
 	text-align: center;
 }
+
+@media screen and (max-width: 668px) {
+	.playerPosition {
+		height: unset;
+	}
+
+	.changeIconContainer {
+		top: 17px;
+		left: 23px;
+	}
+}
+
+@media screen and (max-width: 535px) {
+	.GK {
+		top: 10px;
+	}
+
+	.DF {
+		top: 8px;
+	}
+
+	.FW {
+		top: calc(700px - 360px);
+	}
+}
+
+@media screen and (max-width: 430px) {
+	.positionLine.GK .playerPosition {
+		margin-bottom: unset;
+	}
+
+	.positionLine.GK .playerInformationContainer {
+		width: 100px;
+	}
+
+	.positionLine.FW .playerInformationContainer {
+		width: 90px;
+	}
+
+	.positionLine.DF .playerInformationContainer,
+	.positionLine.MF .playerInformationContainer {
+		width: 60px;
+	}
+
+	.GK {
+		top: 4px;
+	}
+
+	.DF {
+		top: -13px;
+	}
+
+	.FW {
+		top: calc(700px - 340px);
+	}
+}
+
+@media screen and (max-width: 330px) {
+	.playerPosition {
+		width: 25px;
+	}
+
+	.positionLine.GK .playerPosition {
+		margin-bottom: 10px;
+	}
+
+	.positionLine.DF .playerInformationContainer,
+	.positionLine.MF .playerInformationContainer {
+		width: 50px;
+	}
+
+	.captainIcon {
+		top: -13px;
+		right: -10px;
+	}
+
+	.changeIconContainer {
+		top: 13px;
+		left: 18px;
+		height: 16px;
+	}
+}
