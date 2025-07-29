@@ -10,6 +10,7 @@ import { PlayersInformationTable } from "./PlayersInformationTable/PlayersInform
 import { LoadingAnimation } from "../LoadingAnimation/LoadingAnimation";
 
 import { processMatchPlayers } from "../../utils/buildTournament"
+import { countryShortName } from "../../constants/countryShortName"
 
 import { IoInformationSharp } from "react-icons/io5";
 import { RiFlipHorizontal2Line } from "react-icons/ri";
@@ -73,7 +74,7 @@ export const MatchDetails = () => {
                                 {countries.map((countryName) => (
                                     <div key={countryName}>
                                         <img className={countryName == 'Scotland' ? `${styles.scotlandFlag}` : ''} src={countryFlags[countryName]} alt="Flag Image" />
-                                        <p >{countryName}</p>
+                                        <p >{countryShortName[countryName]}</p>
                                     </div>
                                 ))}
                                 <p className={styles.score} >{currentMatch.Score}</p>
@@ -82,7 +83,7 @@ export const MatchDetails = () => {
                                 <motion.div
                                     className={styles.flipCardsContainer}
                                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                                    transition={{duration: 0.7}}
+                                    transition={{ duration: 0.7 }}
                                 >
                                     {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
                                         <div key={teamID} className={index == 0 ? `${styles.frontSide}` : `${styles.backSide}`}>
@@ -93,7 +94,7 @@ export const MatchDetails = () => {
                                                     </div>
                                                 </Link>
                                                 <div className={styles.flipCardIconContainer} data-tooltip-id="my-tooltip-2" onClick={() => setIsFlipped(!isFlipped)}>
-                                                    <RiFlipHorizontal2Line size={34}  />
+                                                    <RiFlipHorizontal2Line size={34} />
                                                 </div>
 
                                                 <Tooltip

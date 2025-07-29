@@ -19,7 +19,7 @@
 	text-align: center;
 	max-width: 1370px;
 	margin: 0px auto 65px auto;
-	padding: 10px 20px;
+	padding: 10px 0px;
 }
 
 .matchResultContainer div {
@@ -214,9 +214,10 @@
 	}
 
 	.matchResultContainer {
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 		font-size: 37px;
+		max-width: 570px;
 	}
 
 	.teamsContentContainer {
@@ -250,14 +251,13 @@
 
 @media screen and (max-width: 668px) {
 	.matchResultContainer {
-		justify-content: space-between;
-		align-items: center;
-		font-size: 24px;
+		font-size: 32px;
 	}
 
 	.matchResultContainer img {
 		width: 50px;
 	}
+
 	.matchResultContainer .scotlandFlag {
 		width: 50px;
 		height: 30px;
@@ -280,6 +280,10 @@
 }
 
 @media screen and (max-width: 535px) {
+	.matchResultContainer {
+		font-size: 26px;
+	}
+
 	.centerCircle {
 		width: 140px;
 		height: 140px;
@@ -292,7 +296,7 @@
 	.goalTargetFieldBottom {
 		height: 50px;
 	}
-	
+
 	.penaltyArcBottom {
 		bottom: 92px;
 	}
@@ -311,6 +315,10 @@
 }
 
 @media screen and (max-width: 430px) {
+	.matchResultContainer {
+		padding: 10px 10px;
+	}
+
 	.matchDetails {
 		padding: unset;
 	}
@@ -328,7 +336,7 @@
 		height: 40px;
 		width: 38%;
 	}
-	
+
 	.penaltyArcBottom {
 		bottom: 70px;
 	}
@@ -340,7 +348,6 @@
 	.goalTargetFieldTop {
 		height: 40px;
 		width: 38%;
-
 	}
 
 	.penaltyArcTop {
@@ -348,20 +355,31 @@
 	}
 }
 
+@media screen and (max-width: 360px) {
+	.matchResultContainer {
+		padding: 10px 10px;
+		font-size: 22px;
+	}
+
+	.matchResultContainer div {
+		gap: 5px;
+	}
+
+	.matchResultContainer img {
+		width: 42px;
+	}
+
+	.matchResultContainer .scotlandFlag {
+		width: 42px;
+		height: 28px;
+	}
+}
+
 @media screen and (max-width: 330px) {
 	.matchResultContainer {
 		justify-content: space-between;
 		align-items: center;
-		font-size: 24px;
-	}
-
-	.matchResultContainer img {
-		width: 50px;
-	}
-	
-	.matchResultContainer .scotlandFlag {
-		width: 50px;
-		height: 30px;
+		font-size: 20px;
 	}
 
 	.teamsContentContainer {
