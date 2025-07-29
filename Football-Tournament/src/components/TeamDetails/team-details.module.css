@@ -7,8 +7,9 @@
 	justify-content: space-between;
 	align-items: center;
 	max-width: 600px;
-	margin: 0 auto 15px auto;
+	margin: 0 auto;
 	color: #c6cccc;
+	height: 88px;
 }
 
 .headingContainer img {
@@ -17,13 +18,13 @@
 
 .scotlandFlag {
 	width: 64px;
-	height: 43px;
+	height: 52px;
 }
 
 .teamDetailsTable {
 	margin: 0 auto;
 	max-width: 600px;
-	max-height: calc(100vh - 264px);
+	max-height: calc(100vh - 287px);
 	overflow: scroll;
 	overflow-x: hidden;
 }
