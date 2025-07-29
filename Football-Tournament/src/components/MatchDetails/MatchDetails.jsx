@@ -21,6 +21,7 @@ import styles from "./match-details.module.css"
 export const MatchDetails = () => {
     const { id } = useParams();
     const [isFlipped, setIsFlipped] = useState(false);
+    const [triggerAnimation, setTriggerAnimation] = useState(true);
     const { teams, matches, playersMappedWithMatches, isLoading } = useContext(TournamentContext);
     const [countries, setCountries] = useState([]);
     const [currentMatch, setCurrentMatch] = useState({});
@@ -28,6 +29,20 @@ export const MatchDetails = () => {
     const [starterAndBenchPlayersSchema, setStarterAndBenchPlayersSchema] = useState([]);
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia("(min-width: 1224px)");
+
+        const handleScreenResize = (e) => {
+            if (e.matches) {
+                setTriggerAnimation(false);
+                setIsFlipped(false);
+            };
+
+            requestAnimationFrame(() => setTriggerAnimation(true));
+
+        }
+
+        mediaQuery.addEventListener("change", handleScreenResize);
+
         if (isLoading) {
             return;
         }
@@ -48,9 +63,11 @@ export const MatchDetails = () => {
         setCurrentMatch(state => ({ ...match, Score: formattedScore }));
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
+        console.log('rerender')
+        return () => mediaQuery.removeEventListener("change", handleScreenResize);
 
     }, [id, isLoading]);
-    console.log(countries)
+
     return (
         <section className={styles.matchDetails}>
             <AnimatePresence mode="wait">
@@ -83,7 +100,7 @@ export const MatchDetails = () => {
                                 <motion.div
                                     className={styles.flipCardsContainer}
                                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                                    transition={{ duration: 0.7 }}
+                                    transition={{ duration: triggerAnimation ? 0.7 : 0 }}
                                 >
                                     {teamsAndPositionsSchema.map(([teamID, positionObject], index) => (
                                         <div key={teamID} className={index == 0 ? `${styles.frontSide}` : `${styles.backSide}`}>
