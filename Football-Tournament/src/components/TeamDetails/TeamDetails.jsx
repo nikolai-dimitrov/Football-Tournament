@@ -29,8 +29,8 @@ export const TeamDetails = () => {
         'MF': 2,
         'FW': 3,
     }
-
-    const players = playersMappedWithTeams[1];
+    
+    const players = playersMappedWithTeams[id];
 
     // useMemo to prevent unnecessary sorting when components re-render
     const sortedPlayersByPosition = useMemo(() => players?.sort((playerA, playerB) => {
