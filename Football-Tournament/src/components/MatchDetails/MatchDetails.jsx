@@ -108,24 +108,26 @@ export const MatchDetails = () => {
                                                 <Link className={styles.teamInformationIconContainer} to={`/team/details/${teamID}?country=${countries[index]}`}>
                                                     <div data-tooltip-id="my-tooltip-1">
                                                         <IoInformationSharp size={34} />
+
+                                                        <Tooltip
+                                                            id="my-tooltip-1"
+                                                            place="top"
+                                                            content={`Team Details - ${countries[index]}`}
+                                                            hidden={window.innerWidth < 1000 ?true : false}
+
+                                                        />
                                                     </div>
                                                 </Link>
                                                 <div className={styles.flipCardIconContainer} data-tooltip-id="my-tooltip-2" onClick={() => setIsFlipped(!isFlipped)}>
                                                     <RiFlipHorizontal2Line size={34} />
+
+                                                    <Tooltip
+                                                        id="my-tooltip-2"
+                                                        place="top"
+                                                        // Show the name of the opposite team as tooltip content
+                                                        content={index == 0 ? `${countries[1]}` : `${countries[0]}`}
+                                                    />
                                                 </div>
-
-                                                <Tooltip
-                                                    id="my-tooltip-1"
-                                                    place="top"
-                                                    content="Team Details"
-                                                />
-
-                                                <Tooltip
-                                                    id="my-tooltip-2"
-                                                    place="top"
-                                                    // Show the name of the opposite team as tooltip content
-                                                    content={index == 0 ? `${countries[1]}` : `${countries[0]}`}
-                                                />
                                                 {/* center */}
                                                 <div className={styles.centerLine}></div>
                                                 <div className={styles.centerCircle}></div>
