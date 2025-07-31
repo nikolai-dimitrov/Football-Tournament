@@ -235,10 +235,6 @@
 		display: block;
 	}
 
-	.flipCardsContainer > div {
-		backface-visibility: hidden;
-	}
-
 	.backSide {
 		transform: rotateY(180deg);
 	}
@@ -246,6 +242,9 @@
 	.frontSide,
 	.backSide {
 		position: absolute;
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		will-change: transform;
 	}
 }
 
