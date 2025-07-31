@@ -12,15 +12,15 @@ export const Home = () => {
     const [isScrollable, setIsScrollable] = useState(() => {
         return window.innerWidth < 1600 ? true : false;
     });
-
     const { matchesGroupStageSchema, matchesPlayedAfterGroupsSchema } = useContext(TournamentContext);
+
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 1600px)");
 
         const handleMediaQueryChange = (e) => {
             if (e.matches) {
-                setIsMobile(true);
+                setIsScrollable(true);
             };
 
         }
@@ -37,7 +37,7 @@ export const Home = () => {
         2: 'semiFinals',
         3: 'finals'
     };
-
+    console.log(isScrollable)
     return (
         <FadeTransition
             durationSeconds={0.3}
@@ -73,6 +73,7 @@ export const Home = () => {
                 <section className={styles.matchBracketsLayout} >
                     <motion.div
                         className={styles.matchBracketsContainer}
+                        initial={{ x: 0 }}
                         whileInView={
                             isScrollable ? {
                                 x: [0, -15, 15, 0],
