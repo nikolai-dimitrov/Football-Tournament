@@ -134,30 +134,30 @@
 }
 
 .qualificationMatchesContent .quarterFinals {
-	gap: 88px;
+	gap: 94px;
 }
 
 .quarterFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
-	top: -119px;
+	top: -125px;
 	right: -50px;
 	width: 2px;
-	height: 151px;
+	height: 157px;
 	background-color: #fff;
 }
 
 .qualificationMatchesContent .semiFinals {
-	gap: 235px;
+	gap: 255px;
 }
 
 .semiFinals .matchBracket.even::before {
 	content: "";
 	position: absolute;
-	top: -265px;
+	top: -286px;
 	right: -50px;
 	width: 2px;
-	height: 298px;
+	height: 319px;
 	background-color: #fff;
 }
 
@@ -276,7 +276,6 @@
 	.matchBracketsContainer {
 		width: 70%;
 		margin: 0 auto;
-		overflow-y: hidden;
 	}
 
 	.qualificationMatchesContent {
