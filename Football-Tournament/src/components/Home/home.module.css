@@ -64,11 +64,16 @@
 }
 
 /* Section after the group stage */
+
+.matchBracketsLayout {
+	width: 75%;
+	overflow: hidden;
+}
+
 .matchBracketsContainer {
 	display: flex;
 	align-items: center;
 	gap: 60px;
-	width: 75%;
 	height: 100%;
 	padding-top: 42px;
 	color: #b1afaf;
@@ -251,9 +256,11 @@
 		min-width: 49%;
 	}
 
-	.matchBracketsContainer {
-		overflow: scroll;
+	.matchBracketsLayout {
 		width: 100%;
+	}
+
+	.matchBracketsContainer {
 		padding-top: unset;
 	}
 
@@ -273,7 +280,7 @@
 		min-width: 70%;
 	}
 
-	.matchBracketsContainer {
+	.matchBracketsLayout {
 		width: 70%;
 		margin: 0 auto;
 	}
@@ -295,7 +302,7 @@
 		min-width: 90%;
 	}
 
-	.matchBracketsContainer {
+	.matchBracketsLayout {
 		width: 90%;
 		margin: 0 auto;
 	}
@@ -327,7 +334,3 @@
 	}
 
 }
-
-/* Additional */
-/* PO MALKO OT 820 HEIGHT
-poveche ot 768 width */
