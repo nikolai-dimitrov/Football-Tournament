@@ -31,7 +31,7 @@ export const MatchDetails = () => {
     useEffect(() => {
         const mediaQuery = window.matchMedia("(min-width: 1224px)");
 
-        const handleScreenResize = (e) => {
+        const handleResetCard = (e) => {
             if (e.matches) {
                 setTriggerAnimation(false);
                 setIsFlipped(false);
@@ -41,7 +41,7 @@ export const MatchDetails = () => {
 
         }
 
-        mediaQuery.addEventListener("change", handleScreenResize);
+        mediaQuery.addEventListener("change", handleResetCard);
 
         if (isLoading) {
             return;
@@ -63,8 +63,8 @@ export const MatchDetails = () => {
         setCurrentMatch(state => ({ ...match, Score: formattedScore }));
         setStarterAndBenchPlayersSchema(state => tempStarterAndBenchPlayersSchema);
         setTeamsAndPositionsSchema(state => tempTeamsAndPositionsSchema);
-        console.log('rerender')
-        return () => mediaQuery.removeEventListener("change", handleScreenResize);
+
+        return () => mediaQuery.removeEventListener("change", handleResetCard);
 
     }, [id, isLoading]);
 
