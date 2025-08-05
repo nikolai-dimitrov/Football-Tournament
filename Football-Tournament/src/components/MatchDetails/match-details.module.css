@@ -283,6 +283,10 @@
 		font-size: 26px;
 	}
 
+	.field {
+		height: 650px;
+	}
+
 	.centerCircle {
 		width: 140px;
 		height: 140px;
